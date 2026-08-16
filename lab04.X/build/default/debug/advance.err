@@ -1,0 +1,8 @@
+Warning[205] C:\USERS\USER\MPLABXPROJECTS\LAB04.X\ADVANCE.ASM 1 : Found directive in column 1. (List)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB04.X\ADVANCE.ASM 10 : Found label after column 1. (main)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB04.X\ADVANCE.ASM 25 : Found label after column 1. (division)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB04.X\ADVANCE.ASM 35 : Found label after column 1. (COMPARE2)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB04.X\ADVANCE.ASM 41 : Found label after column 1. (DIV_SUB)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB04.X\ADVANCE.ASM 57 : Found label after column 1. (DIV_DONE)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB04.X\ADVANCE.ASM 65 : Found label after column 1. (LAST)
+Warning[205] C:\USERS\USER\MPLABXPROJECTS\LAB04.X\ADVANCE.ASM 69 : Found directive in column 1. (end)

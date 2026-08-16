@@ -1,0 +1,2290 @@
+
+
+Microchip MPLAB XC8 Assembler V3.00 build 20241204225717 
+                                                                                               Fri Dec 12 21:24:32 2025
+
+Microchip MPLAB XC8 C Compiler v3.00 (Free license) build 20241204225717 Og1 
+     1                           	processor	18F4520
+     2                           	fnconf	rparam,??,?,0
+     3                           	pagewidth 120
+     4                           	opt	flic
+     5                           	psect	mediumconst,global,reloc=2,class=MEDIUMCONST,space=0,delta=1,noexec
+     6                           	psect	cinit,global,reloc=2,class=CODE,space=0,delta=1
+     7                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1,lowdata,noexec
+     8                           	psect	text0,global,reloc=2,class=CODE,space=0,delta=1
+     9                           	psect	text1,global,reloc=2,class=CODE,space=0,delta=1
+    10                           	psect	text2,global,reloc=2,class=CODE,space=0,delta=1
+    11                           	psect	text3,global,reloc=2,class=CODE,space=0,delta=1
+    12                           	psect	text4,global,reloc=2,class=CODE,space=0,delta=1
+    13                           	psect	text5,global,reloc=2,class=CODE,space=0,delta=1
+    14                           	psect	text6,global,reloc=2,class=CODE,space=0,delta=1
+    15                           	psect	text7,global,reloc=2,class=CODE,space=0,delta=1
+    16                           	psect	text8,global,reloc=2,class=CODE,space=0,delta=1
+    17                           	psect	text9,global,reloc=2,class=CODE,space=0,delta=1
+    18                           	psect	text10,global,reloc=2,class=CODE,space=0,delta=1
+    19                           	psect	text11,global,reloc=2,class=CODE,space=0,delta=1
+    20                           	psect	text12,global,reloc=2,class=CODE,space=0,delta=1
+    21                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1,noexec
+    22                           	psect	rparam,global,class=COMRAM,space=1,delta=1,noexec
+    23                           	psect	idloc,global,abs,ovrld,class=IDLOC,space=5,delta=1,noexec
+    24                           	psect	config,global,abs,ovrld,class=CONFIG,space=4,delta=1,noexec
+    25   000000                     
+    26                           ; Generated 05/12/2024 GMT
+    27                           ; 
+    28                           ; Copyright © 2024, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    29                           ; All rights reserved.
+    30                           ; 
+    31                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+      +                          ip").
+    32                           ; 
+    33                           ; Redistribution and use in source and binary forms, with or without modification, are
+    34                           ; permitted provided that the following conditions are met:
+    35                           ; 
+    36                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+      +                          t of
+    37                           ;        conditions and the following disclaimer.
+    38                           ; 
+    39                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+      +                          list
+    40                           ;        of conditions and the following disclaimer in the documentation and/or other
+    41                           ;        materials provided with the distribution. Publication is not required when
+    42                           ;        this file is used in an embedded application.
+    43                           ; 
+    44                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+      +                          is
+    45                           ;        software without specific prior written permission.
+    46                           ; 
+    47                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    48                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+      +                          OR
+    49                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+      +                          T,
+    50                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    51                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    52                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+      +                          RICT
+    53                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+      +                          SE OF
+    54                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    55                           ; 
+    56                           ; 
+    57                           ; Code-generator required, PIC18F4520 Definitions
+    58                           ; 
+    59                           ; SFR Addresses
+    60   000FE0                     bsr             equ	4064
+    61   000FE9                     fsr0            equ	4073
+    62   000FEA                     fsr0h           equ	4074
+    63   000FE9                     fsr0l           equ	4073
+    64   000FE1                     fsr1            equ	4065
+    65   000FE2                     fsr1h           equ	4066
+    66   000FE1                     fsr1l           equ	4065
+    67   000FD9                     fsr2            equ	4057
+    68   000FDA                     fsr2h           equ	4058
+    69   000FD9                     fsr2l           equ	4057
+    70   000FEF                     indf0           equ	4079
+    71   000FE7                     indf1           equ	4071
+    72   000FDF                     indf2           equ	4063
+    73   000FF2                     intcon          equ	4082
+    74   000000                     nvmcon          equ	0
+    75   000FF9                     pcl             equ	4089
+    76   000FFA                     pclath          equ	4090
+    77   000FFB                     pclatu          equ	4091
+    78   000FEB                     plusw0          equ	4075
+    79   000FE3                     plusw1          equ	4067
+    80   000FDB                     plusw2          equ	4059
+    81   000FED                     postdec0        equ	4077
+    82   000FE5                     postdec1        equ	4069
+    83   000FDD                     postdec2        equ	4061
+    84   000FEE                     postinc0        equ	4078
+    85   000FE6                     postinc1        equ	4070
+    86   000FDE                     postinc2        equ	4062
+    87   000FEC                     preinc0         equ	4076
+    88   000FE4                     preinc1         equ	4068
+    89   000FDC                     preinc2         equ	4060
+    90   000FF3                     prod            equ	4083
+    91   000FF4                     prodh           equ	4084
+    92   000FF3                     prodl           equ	4083
+    93   000FD8                     status          equ	4056
+    94   000FF5                     tablat          equ	4085
+    95   000FF6                     tblptr          equ	4086
+    96   000FF7                     tblptrh         equ	4087
+    97   000FF6                     tblptrl         equ	4086
+    98   000FF8                     tblptru         equ	4088
+    99   000FFD                     tosl            equ	4093
+   100   000FE8                     wreg            equ	4072
+   101   000F80                     PORTA           equ	3968	;# 
+   102   000F81                     PORTB           equ	3969	;# 
+   103   000F82                     PORTC           equ	3970	;# 
+   104   000F83                     PORTD           equ	3971	;# 
+   105   000F84                     PORTE           equ	3972	;# 
+   106   000F89                     LATA            equ	3977	;# 
+   107   000F8A                     LATB            equ	3978	;# 
+   108   000F8B                     LATC            equ	3979	;# 
+   109   000F8C                     LATD            equ	3980	;# 
+   110   000F8D                     LATE            equ	3981	;# 
+   111   000F92                     TRISA           equ	3986	;# 
+   112   000F92                     DDRA            equ	3986	;# 
+   113   000F93                     TRISB           equ	3987	;# 
+   114   000F93                     DDRB            equ	3987	;# 
+   115   000F94                     TRISC           equ	3988	;# 
+   116   000F94                     DDRC            equ	3988	;# 
+   117   000F95                     TRISD           equ	3989	;# 
+   118   000F95                     DDRD            equ	3989	;# 
+   119   000F96                     TRISE           equ	3990	;# 
+   120   000F96                     DDRE            equ	3990	;# 
+   121   000F9B                     OSCTUNE         equ	3995	;# 
+   122   000F9D                     PIE1            equ	3997	;# 
+   123   000F9E                     PIR1            equ	3998	;# 
+   124   000F9F                     IPR1            equ	3999	;# 
+   125   000FA0                     PIE2            equ	4000	;# 
+   126   000FA1                     PIR2            equ	4001	;# 
+   127   000FA2                     IPR2            equ	4002	;# 
+   128   000FA6                     EECON1          equ	4006	;# 
+   129   000FA7                     EECON2          equ	4007	;# 
+   130   000FA8                     EEDATA          equ	4008	;# 
+   131   000FA9                     EEADR           equ	4009	;# 
+   132   000FAB                     RCSTA           equ	4011	;# 
+   133   000FAB                     RCSTA1          equ	4011	;# 
+   134   000FAC                     TXSTA           equ	4012	;# 
+   135   000FAC                     TXSTA1          equ	4012	;# 
+   136   000FAD                     TXREG           equ	4013	;# 
+   137   000FAD                     TXREG1          equ	4013	;# 
+   138   000FAE                     RCREG           equ	4014	;# 
+   139   000FAE                     RCREG1          equ	4014	;# 
+   140   000FAF                     SPBRG           equ	4015	;# 
+   141   000FAF                     SPBRG1          equ	4015	;# 
+   142   000FB0                     SPBRGH          equ	4016	;# 
+   143   000FB1                     T3CON           equ	4017	;# 
+   144   000FB2                     TMR3            equ	4018	;# 
+   145   000FB2                     TMR3L           equ	4018	;# 
+   146   000FB3                     TMR3H           equ	4019	;# 
+   147   000FB4                     CMCON           equ	4020	;# 
+   148   000FB5                     CVRCON          equ	4021	;# 
+   149   000FB6                     ECCP1AS         equ	4022	;# 
+   150   000FB6                     ECCPAS          equ	4022	;# 
+   151   000FB7                     PWM1CON         equ	4023	;# 
+   152   000FB7                     ECCP1DEL        equ	4023	;# 
+   153   000FB8                     BAUDCON         equ	4024	;# 
+   154   000FB8                     BAUDCTL         equ	4024	;# 
+   155   000FBA                     CCP2CON         equ	4026	;# 
+   156   000FBB                     CCPR2           equ	4027	;# 
+   157   000FBB                     CCPR2L          equ	4027	;# 
+   158   000FBC                     CCPR2H          equ	4028	;# 
+   159   000FBD                     CCP1CON         equ	4029	;# 
+   160   000FBE                     CCPR1           equ	4030	;# 
+   161   000FBE                     CCPR1L          equ	4030	;# 
+   162   000FBF                     CCPR1H          equ	4031	;# 
+   163   000FC0                     ADCON2          equ	4032	;# 
+   164   000FC1                     ADCON1          equ	4033	;# 
+   165   000FC2                     ADCON0          equ	4034	;# 
+   166   000FC3                     ADRES           equ	4035	;# 
+   167   000FC3                     ADRESL          equ	4035	;# 
+   168   000FC4                     ADRESH          equ	4036	;# 
+   169   000FC5                     SSPCON2         equ	4037	;# 
+   170   000FC6                     SSPCON1         equ	4038	;# 
+   171   000FC7                     SSPSTAT         equ	4039	;# 
+   172   000FC8                     SSPADD          equ	4040	;# 
+   173   000FC9                     SSPBUF          equ	4041	;# 
+   174   000FCA                     T2CON           equ	4042	;# 
+   175   000FCB                     PR2             equ	4043	;# 
+   176   000FCB                     MEMCON          equ	4043	;# 
+   177   000FCC                     TMR2            equ	4044	;# 
+   178   000FCD                     T1CON           equ	4045	;# 
+   179   000FCE                     TMR1            equ	4046	;# 
+   180   000FCE                     TMR1L           equ	4046	;# 
+   181   000FCF                     TMR1H           equ	4047	;# 
+   182   000FD0                     RCON            equ	4048	;# 
+   183   000FD1                     WDTCON          equ	4049	;# 
+   184   000FD2                     HLVDCON         equ	4050	;# 
+   185   000FD2                     LVDCON          equ	4050	;# 
+   186   000FD3                     OSCCON          equ	4051	;# 
+   187   000FD5                     T0CON           equ	4053	;# 
+   188   000FD6                     TMR0            equ	4054	;# 
+   189   000FD6                     TMR0L           equ	4054	;# 
+   190   000FD7                     TMR0H           equ	4055	;# 
+   191   000FD8                     STATUS          equ	4056	;# 
+   192   000FD9                     FSR2            equ	4057	;# 
+   193   000FD9                     FSR2L           equ	4057	;# 
+   194   000FDA                     FSR2H           equ	4058	;# 
+   195   000FDB                     PLUSW2          equ	4059	;# 
+   196   000FDC                     PREINC2         equ	4060	;# 
+   197   000FDD                     POSTDEC2        equ	4061	;# 
+   198   000FDE                     POSTINC2        equ	4062	;# 
+   199   000FDF                     INDF2           equ	4063	;# 
+   200   000FE0                     BSR             equ	4064	;# 
+   201   000FE1                     FSR1            equ	4065	;# 
+   202   000FE1                     FSR1L           equ	4065	;# 
+   203   000FE2                     FSR1H           equ	4066	;# 
+   204   000FE3                     PLUSW1          equ	4067	;# 
+   205   000FE4                     PREINC1         equ	4068	;# 
+   206   000FE5                     POSTDEC1        equ	4069	;# 
+   207   000FE6                     POSTINC1        equ	4070	;# 
+   208   000FE7                     INDF1           equ	4071	;# 
+   209   000FE8                     WREG            equ	4072	;# 
+   210   000FE9                     FSR0            equ	4073	;# 
+   211   000FE9                     FSR0L           equ	4073	;# 
+   212   000FEA                     FSR0H           equ	4074	;# 
+   213   000FEB                     PLUSW0          equ	4075	;# 
+   214   000FEC                     PREINC0         equ	4076	;# 
+   215   000FED                     POSTDEC0        equ	4077	;# 
+   216   000FEE                     POSTINC0        equ	4078	;# 
+   217   000FEF                     INDF0           equ	4079	;# 
+   218   000FF0                     INTCON3         equ	4080	;# 
+   219   000FF1                     INTCON2         equ	4081	;# 
+   220   000FF2                     INTCON          equ	4082	;# 
+   221   000FF3                     PROD            equ	4083	;# 
+   222   000FF3                     PRODL           equ	4083	;# 
+   223   000FF4                     PRODH           equ	4084	;# 
+   224   000FF5                     TABLAT          equ	4085	;# 
+   225   000FF6                     TBLPTR          equ	4086	;# 
+   226   000FF6                     TBLPTRL         equ	4086	;# 
+   227   000FF7                     TBLPTRH         equ	4087	;# 
+   228   000FF8                     TBLPTRU         equ	4088	;# 
+   229   000FF9                     PCLAT           equ	4089	;# 
+   230   000FF9                     PC              equ	4089	;# 
+   231   000FF9                     PCL             equ	4089	;# 
+   232   000FFA                     PCLATH          equ	4090	;# 
+   233   000FFB                     PCLATU          equ	4091	;# 
+   234   000FFC                     STKPTR          equ	4092	;# 
+   235   000FFD                     TOS             equ	4093	;# 
+   236   000FFD                     TOSL            equ	4093	;# 
+   237   000FFE                     TOSH            equ	4094	;# 
+   238   000FFF                     TOSU            equ	4095	;# 
+   239                           
+   240                           	psect	mediumconst
+   241   007E6E                     __pmediumconst:
+   242                           	callstack 0
+   243   007E6E  00                 	db	0
+   244   007E6F                     HID_KeycodeToASCII@map:
+   245                           	callstack 0
+   246   007E6F  00                 	db	0
+   247   007E70  00                 	db	0
+   248   007E71  00                 	db	0
+   249   007E72  00                 	db	0
+   250   007E73  61                 	db	97
+   251   007E74  62                 	db	98
+   252   007E75  63                 	db	99
+   253   007E76  64                 	db	100
+   254   007E77  65                 	db	101
+   255   007E78  66                 	db	102
+   256   007E79  67                 	db	103
+   257   007E7A  68                 	db	104
+   258   007E7B  69                 	db	105
+   259   007E7C  6A                 	db	106
+   260   007E7D  6B                 	db	107
+   261   007E7E  6C                 	db	108
+   262   007E7F  6D                 	db	109
+   263   007E80  6E                 	db	110
+   264   007E81  6F                 	db	111
+   265   007E82  70                 	db	112
+   266   007E83  71                 	db	113
+   267   007E84  72                 	db	114
+   268   007E85  73                 	db	115
+   269   007E86  74                 	db	116
+   270   007E87  75                 	db	117
+   271   007E88  76                 	db	118
+   272   007E89  77                 	db	119
+   273   007E8A  78                 	db	120
+   274   007E8B  79                 	db	121
+   275   007E8C  7A                 	db	122
+   276   007E8D  31                 	db	49
+   277   007E8E  32                 	db	50
+   278   007E8F  33                 	db	51
+   279   007E90  34                 	db	52
+   280   007E91  35                 	db	53
+   281   007E92  36                 	db	54
+   282   007E93  37                 	db	55
+   283   007E94  38                 	db	56
+   284   007E95  39                 	db	57
+   285   007E96  30                 	db	48
+   286   007E97  00                 	db	0
+   287   007E98  00                 	db	0
+   288   007E99  00                 	db	0
+   289   007E9A  00                 	db	0
+   290   007E9B  00                 	db	0
+   291   007E9C  00                 	db	0
+   292   007E9D  00                 	db	0
+   293   007E9E  00                 	db	0
+   294   007E9F  00                 	db	0
+   295   007EA0  00                 	db	0
+   296   007EA1  00                 	db	0
+   297   007EA2  00                 	db	0
+   298   007EA3  00                 	db	0
+   299   007EA4  00                 	db	0
+   300   007EA5  00                 	db	0
+   301   007EA6  00                 	db	0
+   302   007EA7  00                 	db	0
+   303   007EA8  00                 	db	0
+   304   007EA9  00                 	db	0
+   305   007EAA  00                 	db	0
+   306   007EAB  00                 	db	0
+   307   007EAC  00                 	db	0
+   308   007EAD  00                 	db	0
+   309   007EAE  00                 	db	0
+   310   007EAF  00                 	db	0
+   311   007EB0  00                 	db	0
+   312   007EB1  00                 	db	0
+   313   007EB2  00                 	db	0
+   314   007EB3  00                 	db	0
+   315   007EB4  00                 	db	0
+   316   007EB5  00                 	db	0
+   317   007EB6  00                 	db	0
+   318   007EB7  00                 	db	0
+   319   007EB8  00                 	db	0
+   320   007EB9  00                 	db	0
+   321   007EBA  00                 	db	0
+   322   007EBB  00                 	db	0
+   323   007EBC  00                 	db	0
+   324   007EBD  00                 	db	0
+   325   007EBE  00                 	db	0
+   326   007EBF  00                 	db	0
+   327   007EC0  00                 	db	0
+   328   007EC1  00                 	db	0
+   329   007EC2  00                 	db	0
+   330   007EC3  00                 	db	0
+   331   007EC4  00                 	db	0
+   332   007EC5  00                 	db	0
+   333   007EC6  00                 	db	0
+   334   007EC7  00                 	db	0
+   335   007EC8  00                 	db	0
+   336   007EC9  00                 	db	0
+   337   007ECA  00                 	db	0
+   338   007ECB  00                 	db	0
+   339   007ECC  00                 	db	0
+   340   007ECD  00                 	db	0
+   341   007ECE  00                 	db	0
+   342   007ECF  00                 	db	0
+   343   007ED0  00                 	db	0
+   344   007ED1  00                 	db	0
+   345   007ED2  00                 	db	0
+   346   007ED3  00                 	db	0
+   347   007ED4  00                 	db	0
+   348   007ED5  00                 	db	0
+   349   007ED6  00                 	db	0
+   350   007ED7  00                 	db	0
+   351   007ED8  00                 	db	0
+   352   007ED9  00                 	db	0
+   353   007EDA  00                 	db	0
+   354   007EDB  00                 	db	0
+   355   007EDC  00                 	db	0
+   356   007EDD  00                 	db	0
+   357   007EDE  00                 	db	0
+   358   007EDF  00                 	db	0
+   359   007EE0  00                 	db	0
+   360   007EE1  00                 	db	0
+   361   007EE2  00                 	db	0
+   362   007EE3  00                 	db	0
+   363   007EE4  00                 	db	0
+   364   007EE5  00                 	db	0
+   365   007EE6  00                 	db	0
+   366   007EE7  00                 	db	0
+   367   007EE8  00                 	db	0
+   368   007EE9  00                 	db	0
+   369   007EEA  00                 	db	0
+   370   007EEB  00                 	db	0
+   371   007EEC  00                 	db	0
+   372   007EED  00                 	db	0
+   373   007EEE  00                 	db	0
+   374   007EEF  00                 	db	0
+   375   007EF0  00                 	db	0
+   376   007EF1  00                 	db	0
+   377   007EF2  00                 	db	0
+   378   007EF3  00                 	db	0
+   379   007EF4  00                 	db	0
+   380   007EF5  00                 	db	0
+   381   007EF6  00                 	db	0
+   382   007EF7  00                 	db	0
+   383   007EF8  00                 	db	0
+   384   007EF9  00                 	db	0
+   385   007EFA  00                 	db	0
+   386   007EFB  00                 	db	0
+   387   007EFC  00                 	db	0
+   388   007EFD  00                 	db	0
+   389   007EFE  00                 	db	0
+   390   007EFF  00                 	db	0
+   391   007F00  00                 	db	0
+   392   007F01  00                 	db	0
+   393   007F02  00                 	db	0
+   394   007F03  00                 	db	0
+   395   007F04  00                 	db	0
+   396   007F05  00                 	db	0
+   397   007F06  00                 	db	0
+   398   007F07  00                 	db	0
+   399   007F08  00                 	db	0
+   400   007F09  00                 	db	0
+   401   007F0A  00                 	db	0
+   402   007F0B  00                 	db	0
+   403   007F0C  00                 	db	0
+   404   007F0D  00                 	db	0
+   405   007F0E  00                 	db	0
+   406   007F0F  00                 	db	0
+   407   007F10  00                 	db	0
+   408   007F11  00                 	db	0
+   409   007F12  00                 	db	0
+   410   007F13  00                 	db	0
+   411   007F14  00                 	db	0
+   412   007F15  00                 	db	0
+   413   007F16  00                 	db	0
+   414   007F17  00                 	db	0
+   415   007F18  00                 	db	0
+   416   007F19  00                 	db	0
+   417   007F1A  00                 	db	0
+   418   007F1B  00                 	db	0
+   419   007F1C  00                 	db	0
+   420   007F1D  00                 	db	0
+   421   007F1E  00                 	db	0
+   422   007F1F  00                 	db	0
+   423   007F20  00                 	db	0
+   424   007F21  00                 	db	0
+   425   007F22  00                 	db	0
+   426   007F23  00                 	db	0
+   427   007F24  00                 	db	0
+   428   007F25  00                 	db	0
+   429   007F26  00                 	db	0
+   430   007F27  00                 	db	0
+   431   007F28  00                 	db	0
+   432   007F29  00                 	db	0
+   433   007F2A  00                 	db	0
+   434   007F2B  00                 	db	0
+   435   007F2C  00                 	db	0
+   436   007F2D  00                 	db	0
+   437   007F2E  00                 	db	0
+   438   007F2F  00                 	db	0
+   439   007F30  00                 	db	0
+   440   007F31  00                 	db	0
+   441   007F32  00                 	db	0
+   442   007F33  00                 	db	0
+   443   007F34  00                 	db	0
+   444   007F35  00                 	db	0
+   445   007F36  00                 	db	0
+   446   007F37  00                 	db	0
+   447   007F38  00                 	db	0
+   448   007F39  00                 	db	0
+   449   007F3A  00                 	db	0
+   450   007F3B  00                 	db	0
+   451   007F3C  00                 	db	0
+   452   007F3D  00                 	db	0
+   453   007F3E  00                 	db	0
+   454   007F3F  00                 	db	0
+   455   007F40  00                 	db	0
+   456   007F41  00                 	db	0
+   457   007F42  00                 	db	0
+   458   007F43  00                 	db	0
+   459   007F44  00                 	db	0
+   460   007F45  00                 	db	0
+   461   007F46  00                 	db	0
+   462   007F47  00                 	db	0
+   463   007F48  00                 	db	0
+   464   007F49  00                 	db	0
+   465   007F4A  00                 	db	0
+   466   007F4B  00                 	db	0
+   467   007F4C  00                 	db	0
+   468   007F4D  00                 	db	0
+   469   007F4E  00                 	db	0
+   470   007F4F  00                 	db	0
+   471   007F50  00                 	db	0
+   472   007F51  00                 	db	0
+   473   007F52  00                 	db	0
+   474   007F53  00                 	db	0
+   475   007F54  00                 	db	0
+   476   007F55  00                 	db	0
+   477   007F56  00                 	db	0
+   478   007F57  00                 	db	0
+   479   007F58  00                 	db	0
+   480   007F59  00                 	db	0
+   481   007F5A  00                 	db	0
+   482   007F5B  00                 	db	0
+   483   007F5C  00                 	db	0
+   484   007F5D  00                 	db	0
+   485   007F5E  00                 	db	0
+   486   007F5F  00                 	db	0
+   487   007F60  00                 	db	0
+   488   007F61  00                 	db	0
+   489   007F62  00                 	db	0
+   490   007F63  00                 	db	0
+   491   007F64  00                 	db	0
+   492   007F65  00                 	db	0
+   493   007F66  00                 	db	0
+   494   007F67  00                 	db	0
+   495   007F68  00                 	db	0
+   496   007F69  00                 	db	0
+   497   007F6A  00                 	db	0
+   498   007F6B  00                 	db	0
+   499   007F6C  00                 	db	0
+   500   007F6D  00                 	db	0
+   501   007F6E  00                 	db	0
+   502   007F6F                     __end_ofHID_KeycodeToASCII@map:
+   503                           	callstack 0
+   504   007CF4                     _TXIF           set	31988
+   505   007CA7                     _TRISC7         set	31911
+   506   007CA6                     _TRISC6         set	31910
+   507   000F83                     _PORTD          set	3971
+   508   000F95                     _TRISD          set	3989
+   509   000F81                     _PORTBbits      set	3969
+   510   000FAD                     _TXREG          set	4013
+   511   000FAF                     _SPBRG          set	4015
+   512   000FAB                     _RCSTA          set	4011
+   513   000FAC                     _TXSTA          set	4012
+   514   000FD3                     _OSCCON         set	4051
+   515   007F6F                     STR_1:
+   516   007F6F  43                 	db	67	;'C'
+   517   007F70  48                 	db	72	;'H'
+   518   007F71  33                 	db	51	;'3'
+   519   007F72  37                 	db	55	;'7'
+   520   007F73  35                 	db	53	;'5'
+   521   007F74  20                 	db	32
+   522   007F75  50                 	db	80	;'P'
+   523   007F76  61                 	db	97	;'a'
+   524   007F77  72                 	db	114	;'r'
+   525   007F78  61                 	db	97	;'a'
+   526   007F79  6C                 	db	108	;'l'
+   527   007F7A  6C                 	db	108	;'l'
+   528   007F7B  65                 	db	101	;'e'
+   529   007F7C  6C                 	db	108	;'l'
+   530   007F7D  20                 	db	32
+   531   007F7E  4B                 	db	75	;'K'
+   532   007F7F  65                 	db	101	;'e'
+   533   007F80  79                 	db	121	;'y'
+   534   007F81  62                 	db	98	;'b'
+   535   007F82  6F                 	db	111	;'o'
+   536   007F83  61                 	db	97	;'a'
+   537   007F84  72                 	db	114	;'r'
+   538   007F85  64                 	db	100	;'d'
+   539   007F86  20                 	db	32
+   540   007F87  54                 	db	84	;'T'
+   541   007F88  65                 	db	101	;'e'
+   542   007F89  73                 	db	115	;'s'
+   543   007F8A  74                 	db	116	;'t'
+   544   007F8B  0D                 	db	13
+   545   007F8C  0A                 	db	10
+   546   007F8D  00                 	db	0
+   547   007F8E                     STR_5:
+   548   007F8E  55                 	db	85	;'U'
+   549   007F8F  53                 	db	83	;'S'
+   550   007F90  42                 	db	66	;'B'
+   551   007F91  20                 	db	32
+   552   007F92  44                 	db	68	;'D'
+   553   007F93  65                 	db	101	;'e'
+   554   007F94  76                 	db	118	;'v'
+   555   007F95  69                 	db	105	;'i'
+   556   007F96  63                 	db	99	;'c'
+   557   007F97  65                 	db	101	;'e'
+   558   007F98  20                 	db	32
+   559   007F99  43                 	db	67	;'C'
+   560   007F9A  6F                 	db	111	;'o'
+   561   007F9B  6E                 	db	110	;'n'
+   562   007F9C  6E                 	db	110	;'n'
+   563   007F9D  65                 	db	101	;'e'
+   564   007F9E  63                 	db	99	;'c'
+   565   007F9F  74                 	db	116	;'t'
+   566   007FA0  65                 	db	101	;'e'
+   567   007FA1  64                 	db	100	;'d'
+   568   007FA2  21                 	db	33
+   569   007FA3  0D                 	db	13
+   570   007FA4  0A                 	db	10
+   571   007FA5  00                 	db	0
+   572   007FA6                     STR_2:
+   573   007FA6  53                 	db	83	;'S'
+   574   007FA7  65                 	db	101	;'e'
+   575   007FA8  74                 	db	116	;'t'
+   576   007FA9  74                 	db	116	;'t'
+   577   007FAA  69                 	db	105	;'i'
+   578   007FAB  6E                 	db	110	;'n'
+   579   007FAC  67                 	db	103	;'g'
+   580   007FAD  20                 	db	32
+   581   007FAE  6D                 	db	109	;'m'
+   582   007FAF  6F                 	db	111	;'o'
+   583   007FB0  64                 	db	100	;'d'
+   584   007FB1  65                 	db	101	;'e'
+   585   007FB2  20                 	db	32
+   586   007FB3  30                 	db	48	;'0'
+   587   007FB4  35                 	db	53	;'5'
+   588   007FB5  2E                 	db	46
+   589   007FB6  2E                 	db	46
+   590   007FB7  2E                 	db	46
+   591   007FB8  0D                 	db	13
+   592   007FB9  0A                 	db	10
+   593   007FBA  00                 	db	0
+   594   007FBB                     STR_8:
+   595   007FBB  55                 	db	85	;'U'
+   596   007FBC  53                 	db	83	;'S'
+   597   007FBD  42                 	db	66	;'B'
+   598   007FBE  20                 	db	32
+   599   007FBF  48                 	db	72	;'H'
+   600   007FC0  6F                 	db	111	;'o'
+   601   007FC1  73                 	db	115	;'s'
+   602   007FC2  74                 	db	116	;'t'
+   603   007FC3  20                 	db	32
+   604   007FC4  52                 	db	82	;'R'
+   605   007FC5  65                 	db	101	;'e'
+   606   007FC6  61                 	db	97	;'a'
+   607   007FC7  64                 	db	100	;'d'
+   608   007FC8  79                 	db	121	;'y'
+   609   007FC9  2E                 	db	46
+   610   007FCA  0D                 	db	13
+   611   007FCB  0A                 	db	10
+   612   007FCC  00                 	db	0
+   613   007FCD                     STR_3:
+   614   007FCD  54                 	db	84	;'T'
+   615   007FCE  45                 	db	69	;'E'
+   616   007FCF  53                 	db	83	;'S'
+   617   007FD0  54                 	db	84	;'T'
+   618   007FD1  5F                 	db	95	;'_'
+   619   007FD2  43                 	db	67	;'C'
+   620   007FD3  4F                 	db	79	;'O'
+   621   007FD4  4E                 	db	78	;'N'
+   622   007FD5  4E                 	db	78	;'N'
+   623   007FD6  45                 	db	69	;'E'
+   624   007FD7  43                 	db	67	;'C'
+   625   007FD8  54                 	db	84	;'T'
+   626   007FD9  20                 	db	32
+   627   007FDA  3D                 	db	61	;'='
+   628   007FDB  20                 	db	32
+   629   007FDC  00                 	db	0
+   630   007FDD                     STR_7:
+   631   007FDD  53                 	db	83	;'S'
+   632   007FDE  74                 	db	116	;'t'
+   633   007FDF  61                 	db	97	;'a'
+   634   007FE0  72                 	db	114	;'r'
+   635   007FE1  74                 	db	116	;'t'
+   636   007FE2  20                 	db	32
+   637   007FE3  53                 	db	83	;'S'
+   638   007FE4  4F                 	db	79	;'O'
+   639   007FE5  46                 	db	70	;'F'
+   640   007FE6  2E                 	db	46
+   641   007FE7  2E                 	db	46
+   642   007FE8  2E                 	db	46
+   643   007FE9  0D                 	db	13
+   644   007FEA  0A                 	db	10
+   645   007FEB  00                 	db	0
+   646   007FEC                     STR_6:
+   647   007FEC  52                 	db	82	;'R'
+   648   007FED  65                 	db	101	;'e'
+   649   007FEE  73                 	db	115	;'s'
+   650   007FEF  65                 	db	101	;'e'
+   651   007FF0  74                 	db	116	;'t'
+   652   007FF1  20                 	db	32
+   653   007FF2  62                 	db	98	;'b'
+   654   007FF3  75                 	db	117	;'u'
+   655   007FF4  73                 	db	115	;'s'
+   656   007FF5  2E                 	db	46
+   657   007FF6  2E                 	db	46
+   658   007FF7  2E                 	db	46
+   659   007FF8  0D                 	db	13
+   660   007FF9  0A                 	db	10
+   661   007FFA  00                 	db	0
+   662   007FA3                     STR_4           equ	STR_5+21
+   663   007FFB  00                 	db	0	; dummy byte at the end
+   664   007E6E                     __smallconst    set	__pmediumconst
+   665   007E6E                     __mediumconst   set	__pmediumconst
+   666   000002                     __activetblptr  equ	2
+   667                           
+   668                           ; #config settings
+   669                           
+   670                           	psect	cinit
+   671   007B92                     __pcinit:
+   672                           	callstack 0
+   673   007B92                     start_initialization:
+   674                           	callstack 0
+   675   007B92                     __initialization:
+   676                           	callstack 0
+   677   007B92                     end_of_initialization:
+   678                           	callstack 0
+   679   007B92                     __end_of__initialization:
+   680                           	callstack 0
+   681   007B92  0E00               	movlw	low (__Lmediumconst shr (0+16))
+   682   007B94  6EF8               	movwf	tblptru,c
+   683   007B96  0100               	movlb	0
+   684   007B98  EF22  F03E         	goto	_main	;jump to C main() function
+   685                           
+   686                           	psect	cstackCOMRAM
+   687   000001                     __pcstackCOMRAM:
+   688                           	callstack 0
+   689   000001                     UART_Write@c:
+   690                           	callstack 0
+   691   000001                     CH375_WriteCmd@cmd:
+   692                           	callstack 0
+   693   000001                     CH375_WriteData@d:
+   694                           	callstack 0
+   695   000001                     CH375_ReadData@v:
+   696                           	callstack 0
+   697   000001                     HID_KeycodeToASCII@modifier:
+   698                           	callstack 0
+   699   000001                     ??_CH375_Reset:
+   700   000001                     
+   701                           ; 1 bytes @ 0x0
+   702   000001                     	ds	1
+   703   000002                     UART_Write_Text@s:
+   704                           	callstack 0
+   705   000002                     ??_HID_KeycodeToASCII:
+   706   000002                     ??_CH375_SetMode:
+   707   000002                     ??_CH375_TestConnect:
+   708                           
+   709                           ; 1 bytes @ 0x1
+   710   000002                     	ds	1
+   711   000003                     CH375_SetMode@mode:
+   712                           	callstack 0
+   713   000003                     HID_KeycodeToASCII@code:
+   714                           	callstack 0
+   715                           
+   716                           ; 1 bytes @ 0x2
+   717   000003                     	ds	1
+   718   000004                     HID_KeycodeToASCII@c:
+   719                           	callstack 0
+   720   000004                     ??_USB_Init:
+   721                           
+   722                           ; 1 bytes @ 0x3
+   723   000004                     	ds	1
+   724   000005                     USB_Task@buf:
+   725                           	callstack 0
+   726   000005                     
+   727                           ; 1 bytes @ 0x4
+   728   000005                     	ds	1
+   729   000006                     USB_Init@st:
+   730                           	callstack 0
+   731                           
+   732                           ; 1 bytes @ 0x5
+   733   000006                     	ds	7
+   734   00000D                     USB_Task@status:
+   735                           	callstack 0
+   736                           
+   737                           ; 1 bytes @ 0xC
+   738   00000D                     	ds	1
+   739   00000E                     USB_Task@len:
+   740                           	callstack 0
+   741                           
+   742                           ; 1 bytes @ 0xD
+   743   00000E                     	ds	1
+   744   00000F                     USB_Task@c:
+   745                           	callstack 0
+   746                           
+   747                           ; 1 bytes @ 0xE
+   748   00000F                     	ds	1
+   749   000010                     USB_Task@i:
+   750                           	callstack 0
+   751                           
+   752                           ; 1 bytes @ 0xF
+   753   000010                     	ds	1
+   754   000011                     
+   755                           ; 1 bytes @ 0x10
+   756 ;;
+   757 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   758 ;;
+   759 ;; *************** function _main *****************
+   760 ;; Defined at:
+   761 ;;		line 52 in file "main_2.c"
+   762 ;; Parameters:    Size  Location     Type
+   763 ;;		None
+   764 ;; Auto vars:     Size  Location     Type
+   765 ;;		None
+   766 ;; Return value:  Size  Location     Type
+   767 ;;                  1    wreg      void 
+   768 ;; Registers used:
+   769 ;;		wreg, fsr2l, fsr2h, status,2, status,0, tblptrl, tblptrh, tblptru, cstack
+   770 ;; Tracked objects:
+   771 ;;		On entry : 0/0
+   772 ;;		On exit  : 0/0
+   773 ;;		Unchanged: 0/0
+   774 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   775 ;;      Params:         0       0       0       0       0       0       0
+   776 ;;      Locals:         0       0       0       0       0       0       0
+   777 ;;      Temps:          0       0       0       0       0       0       0
+   778 ;;      Totals:         0       0       0       0       0       0       0
+   779 ;;Total ram usage:        0 bytes
+   780 ;; Hardware stack levels required when called: 3
+   781 ;; This function calls:
+   782 ;;		_UART_Init
+   783 ;;		_UART_Write_Text
+   784 ;;		_USB_Init
+   785 ;;		_USB_Task
+   786 ;; This function is called by:
+   787 ;;		Startup code after reset
+   788 ;; This function uses a non-reentrant model
+   789 ;;
+   790                           
+   791                           	psect	text0
+   792   007C44                     __ptext0:
+   793                           	callstack 0
+   794   007C44                     _main:
+   795                           	callstack 28
+   796   007C44                     
+   797                           ;main_2.c: 54:     OSCCON = 0b01100010;
+   798   007C44  0E62               	movlw	98
+   799   007C46  6ED3               	movwf	211,c	;volatile
+   800   007C48                     
+   801                           ;main_2.c: 56:     UART_Init();
+   802   007C48  ECCE  F03D         	call	_UART_Init	;wreg free
+   803   007C4C                     
+   804                           ;main_2.c: 58:     UART_Write_Text("CH375 Parallel Keyboard Test\r\n");
+   805   007C4C  0E6F               	movlw	low STR_1
+   806   007C4E  6E02               	movwf	UART_Write_Text@s^0,c
+   807   007C50  0E7F               	movlw	high STR_1
+   808   007C52  6E03               	movwf	(UART_Write_Text@s+1)^0,c
+   809   007C54  EC47  F03E         	call	_UART_Write_Text	;wreg free
+   810   007C58                     
+   811                           ;main_2.c: 60:     USB_Init();
+   812   007C58  ECCC  F03E         	call	_USB_Init	;wreg free
+   813   007C5C                     l1009:
+   814                           
+   815                           ;main_2.c: 63:     {;main_2.c: 64:         USB_Task();
+   816   007C5C  EC8B  F03E         	call	_USB_Task	;wreg free
+   817   007C60  EF2E  F03E         	goto	l1009
+   818   007C64  EFFE  F03F         	goto	start
+   819   007C68                     __end_of_main:
+   820                           	callstack 0
+   821                           
+   822 ;; *************** function _USB_Task *****************
+   823 ;; Defined at:
+   824 ;;		line 211 in file "main_2.c"
+   825 ;; Parameters:    Size  Location     Type
+   826 ;;		None
+   827 ;; Auto vars:     Size  Location     Type
+   828 ;;  i               1   15[COMRAM] unsigned char 
+   829 ;;  buf             8    4[COMRAM] unsigned char [8]
+   830 ;;  c               1   14[COMRAM] unsigned char 
+   831 ;;  len             1   13[COMRAM] unsigned char 
+   832 ;;  status          1   12[COMRAM] unsigned char 
+   833 ;; Return value:  Size  Location     Type
+   834 ;;                  1    wreg      void 
+   835 ;; Registers used:
+   836 ;;		wreg, fsr2l, fsr2h, status,2, status,0, tblptrl, tblptrh, tblptru, cstack
+   837 ;; Tracked objects:
+   838 ;;		On entry : 0/0
+   839 ;;		On exit  : 0/0
+   840 ;;		Unchanged: 0/0
+   841 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   842 ;;      Params:         0       0       0       0       0       0       0
+   843 ;;      Locals:        12       0       0       0       0       0       0
+   844 ;;      Temps:          0       0       0       0       0       0       0
+   845 ;;      Totals:        12       0       0       0       0       0       0
+   846 ;;Total ram usage:       12 bytes
+   847 ;; Hardware stack levels used: 1
+   848 ;; Hardware stack levels required when called: 1
+   849 ;; This function calls:
+   850 ;;		_CH375_ReadData
+   851 ;;		_CH375_WriteCmd
+   852 ;;		_CH375_WriteData
+   853 ;;		_HID_KeycodeToASCII
+   854 ;;		_UART_Write
+   855 ;; This function is called by:
+   856 ;;		_main
+   857 ;; This function uses a non-reentrant model
+   858 ;;
+   859                           
+   860                           	psect	text1
+   861   007D16                     __ptext1:
+   862                           	callstack 0
+   863   007D16                     _USB_Task:
+   864                           	callstack 29
+   865   007D16                     
+   866                           ;main_2.c: 213:     uint8_t status;;main_2.c: 215:     CH375_WriteCmd(0x4A);
+   867   007D16  0E4A               	movlw	74
+   868   007D18  ECE2  F03D         	call	_CH375_WriteCmd
+   869                           
+   870                           ;main_2.c: 216:     CH375_WriteData(0x81);
+   871   007D1C  0E81               	movlw	129
+   872   007D1E  ECEE  F03D         	call	_CH375_WriteData
+   873                           
+   874                           ;main_2.c: 218:     CH375_WriteCmd(0x22);
+   875   007D22  0E22               	movlw	34
+   876   007D24  ECE2  F03D         	call	_CH375_WriteCmd
+   877   007D28                     
+   878                           ;main_2.c: 219:     status = CH375_ReadData();
+   879   007D28  ECFA  F03D         	call	_CH375_ReadData	;wreg free
+   880   007D2C  6E0D               	movwf	USB_Task@status^0,c
+   881   007D2E                     
+   882                           ;main_2.c: 221:     if(status == 0x14)
+   883   007D2E  0E14               	movlw	20
+   884   007D30  180D               	xorwf	USB_Task@status^0,w,c
+   885   007D32  A4D8               	btfss	status,2,c
+   886   007D34  EF9E  F03E         	goto	u151
+   887   007D38  EFA0  F03E         	goto	u150
+   888   007D3C                     u151:
+   889   007D3C  EFCB  F03E         	goto	l90
+   890   007D40                     u150:
+   891   007D40                     
+   892                           ;main_2.c: 222:     {;main_2.c: 223:         CH375_WriteCmd(0x28);
+   893   007D40  0E28               	movlw	40
+   894   007D42  ECE2  F03D         	call	_CH375_WriteCmd
+   895   007D46                     
+   896                           ;main_2.c: 224:         uint8_t len = CH375_ReadData();
+   897   007D46  ECFA  F03D         	call	_CH375_ReadData	;wreg free
+   898   007D4A  6E0E               	movwf	USB_Task@len^0,c
+   899   007D4C                     
+   900                           ;main_2.c: 226:         uint8_t buf[8];;main_2.c: 227:         for(uint8_t i=0;i<len;i++
+      +                          )
+   901   007D4C  6A10               	clrf	USB_Task@i^0,c
+   902   007D4E  EFB1  F03E         	goto	l993
+   903   007D52                     l989:
+   904                           
+   905                           ;main_2.c: 228:             buf[i] = CH375_ReadData();
+   906   007D52  5010               	movf	USB_Task@i^0,w,c
+   907   007D54  0F05               	addlw	low USB_Task@buf
+   908   007D56  6ED9               	movwf	fsr2l,c
+   909   007D58  6ADA               	clrf	fsr2h,c
+   910   007D5A  ECFA  F03D         	call	_CH375_ReadData	;wreg free
+   911   007D5E  6EDF               	movwf	indf2,c
+   912   007D60  2A10               	incf	USB_Task@i^0,f,c
+   913   007D62                     l993:
+   914   007D62  500E               	movf	USB_Task@len^0,w,c
+   915   007D64  5C10               	subwf	USB_Task@i^0,w,c
+   916   007D66  A0D8               	btfss	status,0,c
+   917   007D68  EFB8  F03E         	goto	u161
+   918   007D6C  EFBA  F03E         	goto	u160
+   919   007D70                     u161:
+   920   007D70  EFA9  F03E         	goto	l989
+   921   007D74                     u160:
+   922   007D74                     
+   923                           ;main_2.c: 230:         char c = HID_KeycodeToASCII(buf[2], buf[0]);
+   924   007D74  C005  F001         	movff	USB_Task@buf,HID_KeycodeToASCII@modifier
+   925   007D78  5007               	movf	(USB_Task@buf+2)^0,w,c
+   926   007D7A  EC62  F03E         	call	_HID_KeycodeToASCII
+   927   007D7E  6E0F               	movwf	USB_Task@c^0,c
+   928   007D80                     
+   929                           ;main_2.c: 231:         if(c)
+   930   007D80  500F               	movf	USB_Task@c^0,w,c
+   931   007D82  B4D8               	btfsc	status,2,c
+   932   007D84  EFC6  F03E         	goto	u171
+   933   007D88  EFC8  F03E         	goto	u170
+   934   007D8C                     u171:
+   935   007D8C  EFCB  F03E         	goto	l90
+   936   007D90                     u170:
+   937   007D90                     
+   938                           ;main_2.c: 232:             UART_Write(c);
+   939   007D90  500F               	movf	USB_Task@c^0,w,c
+   940   007D92  ECD7  F03D         	call	_UART_Write
+   941   007D96                     l90:
+   942   007D96  0012               	return		;funcret
+   943   007D98                     __end_of_USB_Task:
+   944                           	callstack 0
+   945                           
+   946 ;; *************** function _HID_KeycodeToASCII *****************
+   947 ;; Defined at:
+   948 ;;		line 240 in file "main_2.c"
+   949 ;; Parameters:    Size  Location     Type
+   950 ;;  code            1    wreg     unsigned char 
+   951 ;;  modifier        1    0[COMRAM] unsigned char 
+   952 ;; Auto vars:     Size  Location     Type
+   953 ;;  code            1    2[COMRAM] unsigned char 
+   954 ;;  c               1    3[COMRAM] unsigned char 
+   955 ;; Return value:  Size  Location     Type
+   956 ;;                  1    wreg      unsigned char 
+   957 ;; Registers used:
+   958 ;;		wreg, status,2, status,0, tblptrl, tblptrh, tblptru
+   959 ;; Tracked objects:
+   960 ;;		On entry : 0/0
+   961 ;;		On exit  : 0/0
+   962 ;;		Unchanged: 0/0
+   963 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   964 ;;      Params:         1       0       0       0       0       0       0
+   965 ;;      Locals:         2       0       0       0       0       0       0
+   966 ;;      Temps:          1       0       0       0       0       0       0
+   967 ;;      Totals:         4       0       0       0       0       0       0
+   968 ;;Total ram usage:        4 bytes
+   969 ;; Hardware stack levels used: 1
+   970 ;; This function calls:
+   971 ;;		Nothing
+   972 ;; This function is called by:
+   973 ;;		_USB_Task
+   974 ;; This function uses a non-reentrant model
+   975 ;;
+   976                           
+   977                           	psect	text2
+   978   007CC4                     __ptext2:
+   979                           	callstack 0
+   980   007CC4                     _HID_KeycodeToASCII:
+   981                           	callstack 29
+   982                           
+   983                           ;incstack = 0
+   984                           ;HID_KeycodeToASCII@code stored from wreg
+   985   007CC4  6E03               	movwf	HID_KeycodeToASCII@code^0,c
+   986   007CC6                     
+   987                           ;main_2.c: 240: char HID_KeycodeToASCII(uint8_t code, uint8_t modifier);main_2.c: 241: {
+      +                          ;main_2.c: 242:     static const char map[256] = {;main_2.c: 255:     char c = map[code]
+      +                          ;
+   988   007CC6  0E6F               	movlw	low HID_KeycodeToASCII@map
+   989   007CC8  2403               	addwf	HID_KeycodeToASCII@code^0,w,c
+   990   007CCA  6EF6               	movwf	tblptrl,c
+   991   007CCC  6AF7               	clrf	tblptrh,c
+   992   007CCE  0E7E               	movlw	high HID_KeycodeToASCII@map
+   993   007CD0  22F7               	addwfc	tblptrh,f,c
+   994   007CD2                     	if	0	;There are less than 3 active tblptr bytes
+   995   007CD2                     	endif
+   996   007CD2  0008               	tblrd		*
+   997   007CD4  CFF5 F004          	movff	tablat,HID_KeycodeToASCII@c
+   998   007CD8                     
+   999                           ;main_2.c: 257:     if(modifier & 0x22)
+  1000   007CD8  C001  F002         	movff	HID_KeycodeToASCII@modifier,??_HID_KeycodeToASCII
+  1001   007CDC  0E22               	movlw	34
+  1002   007CDE  1602               	andwf	??_HID_KeycodeToASCII^0,f,c
+  1003   007CE0  B4D8               	btfsc	status,2,c
+  1004   007CE2  EF75  F03E         	goto	u111
+  1005   007CE6  EF77  F03E         	goto	u110
+  1006   007CEA                     u111:
+  1007   007CEA  EF89  F03E         	goto	l939
+  1008   007CEE                     u110:
+  1009   007CEE                     
+  1010                           ;main_2.c: 258:     {;main_2.c: 259:         if(c>='a' && c<='z')
+  1011   007CEE  0E60               	movlw	96
+  1012   007CF0  6404               	cpfsgt	HID_KeycodeToASCII@c^0,c
+  1013   007CF2  EF7D  F03E         	goto	u121
+  1014   007CF6  EF7F  F03E         	goto	u120
+  1015   007CFA                     u121:
+  1016   007CFA  EF89  F03E         	goto	l939
+  1017   007CFE                     u120:
+  1018   007CFE  0E7B               	movlw	123
+  1019   007D00  6004               	cpfslt	HID_KeycodeToASCII@c^0,c
+  1020   007D02  EF85  F03E         	goto	u131
+  1021   007D06  EF87  F03E         	goto	u130
+  1022   007D0A                     u131:
+  1023   007D0A  EF89  F03E         	goto	l939
+  1024   007D0E                     u130:
+  1025   007D0E                     
+  1026                           ;main_2.c: 260:             c -= 32;
+  1027   007D0E  0E20               	movlw	32
+  1028   007D10  5E04               	subwf	HID_KeycodeToASCII@c^0,f,c
+  1029   007D12                     l939:
+  1030                           
+  1031                           ;main_2.c: 263:     return c;
+  1032   007D12  5004               	movf	HID_KeycodeToASCII@c^0,w,c
+  1033   007D14  0012               	return		;funcret
+  1034   007D16                     __end_of_HID_KeycodeToASCII:
+  1035                           	callstack 0
+  1036                           
+  1037 ;; *************** function _USB_Init *****************
+  1038 ;; Defined at:
+  1039 ;;		line 177 in file "main_2.c"
+  1040 ;; Parameters:    Size  Location     Type
+  1041 ;;		None
+  1042 ;; Auto vars:     Size  Location     Type
+  1043 ;;  st              1    5[COMRAM] unsigned char 
+  1044 ;; Return value:  Size  Location     Type
+  1045 ;;                  1    wreg      void 
+  1046 ;; Registers used:
+  1047 ;;		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, cstack
+  1048 ;; Tracked objects:
+  1049 ;;		On entry : 0/0
+  1050 ;;		On exit  : 0/0
+  1051 ;;		Unchanged: 0/0
+  1052 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1053 ;;      Params:         0       0       0       0       0       0       0
+  1054 ;;      Locals:         1       0       0       0       0       0       0
+  1055 ;;      Temps:          2       0       0       0       0       0       0
+  1056 ;;      Totals:         3       0       0       0       0       0       0
+  1057 ;;Total ram usage:        3 bytes
+  1058 ;; Hardware stack levels used: 1
+  1059 ;; Hardware stack levels required when called: 2
+  1060 ;; This function calls:
+  1061 ;;		_CH375_Reset
+  1062 ;;		_CH375_SetMode
+  1063 ;;		_CH375_TestConnect
+  1064 ;;		_UART_Write
+  1065 ;;		_UART_Write_Text
+  1066 ;; This function is called by:
+  1067 ;;		_main
+  1068 ;; This function uses a non-reentrant model
+  1069 ;;
+  1070                           
+  1071                           	psect	text3
+  1072   007D98                     __ptext3:
+  1073                           	callstack 0
+  1074   007D98                     _USB_Init:
+  1075                           	callstack 28
+  1076   007D98                     
+  1077                           ;main_2.c: 179:     CH375_Reset();
+  1078   007D98  EC34  F03E         	call	_CH375_Reset	;wreg free
+  1079   007D9C                     
+  1080                           ;main_2.c: 181:     UART_Write_Text("Setting mode 05...\r\n");
+  1081   007D9C  0EA6               	movlw	low STR_2
+  1082   007D9E  6E02               	movwf	UART_Write_Text@s^0,c
+  1083   007DA0  0E7F               	movlw	high STR_2
+  1084   007DA2  6E03               	movwf	(UART_Write_Text@s+1)^0,c
+  1085   007DA4  EC47  F03E         	call	_UART_Write_Text	;wreg free
+  1086   007DA8                     
+  1087                           ;main_2.c: 182:     CH375_SetMode(0x05);
+  1088   007DA8  0E05               	movlw	5
+  1089   007DAA  EC13  F03E         	call	_CH375_SetMode
+  1090   007DAE                     l949:
+  1091                           
+  1092                           ;main_2.c: 185:     {;main_2.c: 186:         uint8_t st = CH375_TestConnect();
+  1093   007DAE  EC06  F03E         	call	_CH375_TestConnect	;wreg free
+  1094   007DB2  6E06               	movwf	USB_Init@st^0,c
+  1095   007DB4                     
+  1096                           ;main_2.c: 187:         UART_Write_Text("TEST_CONNECT = ");
+  1097   007DB4  0ECD               	movlw	low STR_3
+  1098   007DB6  6E02               	movwf	UART_Write_Text@s^0,c
+  1099   007DB8  0E7F               	movlw	high STR_3
+  1100   007DBA  6E03               	movwf	(UART_Write_Text@s+1)^0,c
+  1101   007DBC  EC47  F03E         	call	_UART_Write_Text	;wreg free
+  1102   007DC0                     
+  1103                           ;main_2.c: 188:         UART_Write((st>>4)+'0');
+  1104   007DC0  3806               	swapf	USB_Init@st^0,w,c
+  1105   007DC2  0B0F               	andlw	15
+  1106   007DC4  0F30               	addlw	48
+  1107   007DC6  ECD7  F03D         	call	_UART_Write
+  1108   007DCA                     
+  1109                           ;main_2.c: 189:         UART_Write((st&0x0F)+'0');
+  1110   007DCA  5006               	movf	USB_Init@st^0,w,c
+  1111   007DCC  0B0F               	andlw	15
+  1112   007DCE  0F30               	addlw	48
+  1113   007DD0  ECD7  F03D         	call	_UART_Write
+  1114   007DD4                     
+  1115                           ;main_2.c: 190:         UART_Write_Text("\r\n");
+  1116   007DD4  0EA3               	movlw	low (STR_5+21)
+  1117   007DD6  6E02               	movwf	UART_Write_Text@s^0,c
+  1118   007DD8  0E7F               	movlw	high (STR_5+21)
+  1119   007DDA  6E03               	movwf	(UART_Write_Text@s+1)^0,c
+  1120   007DDC  EC47  F03E         	call	_UART_Write_Text	;wreg free
+  1121   007DE0                     
+  1122                           ;main_2.c: 192:         if(st == 0x15)
+  1123   007DE0  0E15               	movlw	21
+  1124   007DE2  1806               	xorwf	USB_Init@st^0,w,c
+  1125   007DE4  A4D8               	btfss	status,2,c
+  1126   007DE6  EFF7  F03E         	goto	u141
+  1127   007DEA  EFF9  F03E         	goto	u140
+  1128   007DEE                     u141:
+  1129   007DEE  EF01  F03F         	goto	l963
+  1130   007DF2                     u140:
+  1131   007DF2                     
+  1132                           ;main_2.c: 193:         {;main_2.c: 194:             UART_Write_Text("USB Device Connect
+      +                          ed!\r\n");
+  1133   007DF2  0E8E               	movlw	low STR_5
+  1134   007DF4  6E02               	movwf	UART_Write_Text@s^0,c
+  1135   007DF6  0E7F               	movlw	high STR_5
+  1136   007DF8  6E03               	movwf	(UART_Write_Text@s+1)^0,c
+  1137   007DFA  EC47  F03E         	call	_UART_Write_Text	;wreg free
+  1138                           
+  1139                           ;main_2.c: 195:             break;
+  1140   007DFE  EF0F  F03F         	goto	l965
+  1141   007E02                     l963:
+  1142                           
+  1143                           ;main_2.c: 197:         _delay((unsigned long)((200)*(4000000/4000.0)));
+  1144   007E02  0E02               	movlw	2
+  1145   007E04  6E05               	movwf	(??_USB_Init+1)^0,c
+  1146   007E06  0E04               	movlw	4
+  1147   007E08  6E04               	movwf	??_USB_Init^0,c
+  1148   007E0A  0EBA               	movlw	186
+  1149   007E0C                     u187:
+  1150   007E0C  2EE8               	decfsz	wreg,f,c
+  1151   007E0E  D7FE               	bra	u187
+  1152   007E10  2E04               	decfsz	??_USB_Init^0,f,c
+  1153   007E12  D7FC               	bra	u187
+  1154   007E14  2E05               	decfsz	(??_USB_Init+1)^0,f,c
+  1155   007E16  D7FA               	bra	u187
+  1156   007E18  D000               	nop2	
+  1157   007E1A  EFD7  F03E         	goto	l949
+  1158   007E1E                     l965:
+  1159                           
+  1160                           ;main_2.c: 200:     UART_Write_Text("Reset bus...\r\n");
+  1161   007E1E  0EEC               	movlw	low STR_6
+  1162   007E20  6E02               	movwf	UART_Write_Text@s^0,c
+  1163   007E22  0E7F               	movlw	high STR_6
+  1164   007E24  6E03               	movwf	(UART_Write_Text@s+1)^0,c
+  1165   007E26  EC47  F03E         	call	_UART_Write_Text	;wreg free
+  1166   007E2A                     
+  1167                           ;main_2.c: 201:     CH375_SetMode(0x07);
+  1168   007E2A  0E07               	movlw	7
+  1169   007E2C  EC13  F03E         	call	_CH375_SetMode
+  1170   007E30                     
+  1171                           ;main_2.c: 202:     _delay((unsigned long)((20)*(4000000/4000.0)));
+  1172   007E30  0E1A               	movlw	26
+  1173   007E32  6E04               	movwf	??_USB_Init^0,c
+  1174   007E34  0EF8               	movlw	248
+  1175   007E36                     u197:
+  1176   007E36  2EE8               	decfsz	wreg,f,c
+  1177   007E38  D7FE               	bra	u197
+  1178   007E3A  2E04               	decfsz	??_USB_Init^0,f,c
+  1179   007E3C  D7FC               	bra	u197
+  1180   007E3E  D000               	nop2	
+  1181   007E40                     
+  1182                           ;main_2.c: 204:     UART_Write_Text("Start SOF...\r\n");
+  1183   007E40  0EDD               	movlw	low STR_7
+  1184   007E42  6E02               	movwf	UART_Write_Text@s^0,c
+  1185   007E44  0E7F               	movlw	high STR_7
+  1186   007E46  6E03               	movwf	(UART_Write_Text@s+1)^0,c
+  1187   007E48  EC47  F03E         	call	_UART_Write_Text	;wreg free
+  1188   007E4C                     
+  1189                           ;main_2.c: 205:     CH375_SetMode(0x06);
+  1190   007E4C  0E06               	movlw	6
+  1191   007E4E  EC13  F03E         	call	_CH375_SetMode
+  1192                           
+  1193                           ;main_2.c: 206:     _delay((unsigned long)((10)*(4000000/4000.0)));
+  1194   007E52  0E0D               	movlw	13
+  1195   007E54  6E04               	movwf	??_USB_Init^0,c
+  1196   007E56  0EFC               	movlw	252
+  1197   007E58                     u207:
+  1198   007E58  2EE8               	decfsz	wreg,f,c
+  1199   007E5A  D7FE               	bra	u207
+  1200   007E5C  2E04               	decfsz	??_USB_Init^0,f,c
+  1201   007E5E  D7FC               	bra	u207
+  1202   007E60                     
+  1203                           ;main_2.c: 208:     UART_Write_Text("USB Host Ready.\r\n");
+  1204   007E60  0EBB               	movlw	low STR_8
+  1205   007E62  6E02               	movwf	UART_Write_Text@s^0,c
+  1206   007E64  0E7F               	movlw	high STR_8
+  1207   007E66  6E03               	movwf	(UART_Write_Text@s+1)^0,c
+  1208   007E68  EC47  F03E         	call	_UART_Write_Text	;wreg free
+  1209   007E6C  0012               	return		;funcret
+  1210   007E6E                     __end_of_USB_Init:
+  1211                           	callstack 0
+  1212                           
+  1213 ;; *************** function _UART_Write_Text *****************
+  1214 ;; Defined at:
+  1215 ;;		line 88 in file "main_2.c"
+  1216 ;; Parameters:    Size  Location     Type
+  1217 ;;  s               2    1[COMRAM] PTR const unsigned char 
+  1218 ;;		 -> STR_8(18), STR_7(15), STR_6(15), STR_5(24), 
+  1219 ;;		 -> STR_4(3), STR_3(16), STR_2(21), STR_1(31), 
+  1220 ;; Auto vars:     Size  Location     Type
+  1221 ;;		None
+  1222 ;; Return value:  Size  Location     Type
+  1223 ;;                  1    wreg      void 
+  1224 ;; Registers used:
+  1225 ;;		wreg, status,2, status,0, tblptrl, tblptrh, tblptru, cstack
+  1226 ;; Tracked objects:
+  1227 ;;		On entry : 0/0
+  1228 ;;		On exit  : 0/0
+  1229 ;;		Unchanged: 0/0
+  1230 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1231 ;;      Params:         2       0       0       0       0       0       0
+  1232 ;;      Locals:         0       0       0       0       0       0       0
+  1233 ;;      Temps:          0       0       0       0       0       0       0
+  1234 ;;      Totals:         2       0       0       0       0       0       0
+  1235 ;;Total ram usage:        2 bytes
+  1236 ;; Hardware stack levels used: 1
+  1237 ;; Hardware stack levels required when called: 1
+  1238 ;; This function calls:
+  1239 ;;		_UART_Write
+  1240 ;; This function is called by:
+  1241 ;;		_main
+  1242 ;;		_USB_Init
+  1243 ;; This function uses a non-reentrant model
+  1244 ;;
+  1245                           
+  1246                           	psect	text4
+  1247   007C8E                     __ptext4:
+  1248                           	callstack 0
+  1249   007C8E                     _UART_Write_Text:
+  1250                           	callstack 28
+  1251   007C8E                     
+  1252                           ;main_2.c: 88: void UART_Write_Text(const char *s);main_2.c: 89: {;main_2.c: 90:     whi
+      +                          le(*s)
+  1253   007C8E  EF53  F03E         	goto	l927
+  1254   007C92                     l923:
+  1255                           
+  1256                           ;main_2.c: 91:     {;main_2.c: 92:         UART_Write(*s++);
+  1257   007C92  C002  FFF6         	movff	UART_Write_Text@s,tblptrl
+  1258   007C96  C003  FFF7         	movff	UART_Write_Text@s+1,tblptrh
+  1259   007C9A                     	if	0	;tblptru may be non-zero
+  1260   007C9A                     	endif
+  1261   007C9A                     	if	0	;tblptru may be non-zero
+  1262   007C9A                     	endif
+  1263   007C9A  0008               	tblrd		*
+  1264   007C9C  50F5               	movf	tablat,w,c
+  1265   007C9E  ECD7  F03D         	call	_UART_Write
+  1266   007CA2  4A02               	infsnz	UART_Write_Text@s^0,f,c
+  1267   007CA4  2A03               	incf	(UART_Write_Text@s+1)^0,f,c
+  1268   007CA6                     l927:
+  1269                           
+  1270                           ;main_2.c: 90:     while(*s)
+  1271   007CA6  C002  FFF6         	movff	UART_Write_Text@s,tblptrl
+  1272   007CAA  C003  FFF7         	movff	UART_Write_Text@s+1,tblptrh
+  1273   007CAE                     	if	0	;tblptru may be non-zero
+  1274   007CAE                     	endif
+  1275   007CAE                     	if	0	;tblptru may be non-zero
+  1276   007CAE                     	endif
+  1277   007CAE  0008               	tblrd		*
+  1278   007CB0  50F5               	movf	tablat,w,c
+  1279   007CB2  0900               	iorlw	0
+  1280   007CB4  A4D8               	btfss	status,2,c
+  1281   007CB6  EF5F  F03E         	goto	u101
+  1282   007CBA  EF61  F03E         	goto	u100
+  1283   007CBE                     u101:
+  1284   007CBE  EF49  F03E         	goto	l923
+  1285   007CC2                     u100:
+  1286   007CC2  0012               	return		;funcret
+  1287   007CC4                     __end_of_UART_Write_Text:
+  1288                           	callstack 0
+  1289                           
+  1290 ;; *************** function _UART_Write *****************
+  1291 ;; Defined at:
+  1292 ;;		line 82 in file "main_2.c"
+  1293 ;; Parameters:    Size  Location     Type
+  1294 ;;  c               1    wreg     unsigned char 
+  1295 ;; Auto vars:     Size  Location     Type
+  1296 ;;  c               1    0[COMRAM] unsigned char 
+  1297 ;; Return value:  Size  Location     Type
+  1298 ;;                  1    wreg      void 
+  1299 ;; Registers used:
+  1300 ;;		wreg
+  1301 ;; Tracked objects:
+  1302 ;;		On entry : 0/0
+  1303 ;;		On exit  : 0/0
+  1304 ;;		Unchanged: 0/0
+  1305 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1306 ;;      Params:         0       0       0       0       0       0       0
+  1307 ;;      Locals:         1       0       0       0       0       0       0
+  1308 ;;      Temps:          0       0       0       0       0       0       0
+  1309 ;;      Totals:         1       0       0       0       0       0       0
+  1310 ;;Total ram usage:        1 bytes
+  1311 ;; Hardware stack levels used: 1
+  1312 ;; This function calls:
+  1313 ;;		Nothing
+  1314 ;; This function is called by:
+  1315 ;;		_UART_Write_Text
+  1316 ;;		_USB_Init
+  1317 ;;		_USB_Task
+  1318 ;; This function uses a non-reentrant model
+  1319 ;;
+  1320                           
+  1321                           	psect	text5
+  1322   007BAE                     __ptext5:
+  1323                           	callstack 0
+  1324   007BAE                     _UART_Write:
+  1325                           	callstack 29
+  1326                           
+  1327                           ;incstack = 0
+  1328                           ;UART_Write@c stored from wreg
+  1329   007BAE  6E01               	movwf	UART_Write@c^0,c
+  1330   007BB0                     l48:
+  1331   007BB0  A89E               	btfss	3998,4,c	;volatile
+  1332   007BB2  EFDD  F03D         	goto	u11
+  1333   007BB6  EFDF  F03D         	goto	u10
+  1334   007BBA                     u11:
+  1335   007BBA  EFD8  F03D         	goto	l48
+  1336   007BBE                     u10:
+  1337   007BBE                     
+  1338                           ;main_2.c: 85:     TXREG = c;
+  1339   007BBE  C001  FFAD         	movff	UART_Write@c,4013	;volatile
+  1340   007BC2  0012               	return		;funcret
+  1341   007BC4                     __end_of_UART_Write:
+  1342                           	callstack 0
+  1343                           
+  1344 ;; *************** function _CH375_TestConnect *****************
+  1345 ;; Defined at:
+  1346 ;;		line 166 in file "main_2.c"
+  1347 ;; Parameters:    Size  Location     Type
+  1348 ;;		None
+  1349 ;; Auto vars:     Size  Location     Type
+  1350 ;;		None
+  1351 ;; Return value:  Size  Location     Type
+  1352 ;;                  1    wreg      unsigned char 
+  1353 ;; Registers used:
+  1354 ;;		wreg, status,2, cstack
+  1355 ;; Tracked objects:
+  1356 ;;		On entry : 0/0
+  1357 ;;		On exit  : 0/0
+  1358 ;;		Unchanged: 0/0
+  1359 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1360 ;;      Params:         0       0       0       0       0       0       0
+  1361 ;;      Locals:         0       0       0       0       0       0       0
+  1362 ;;      Temps:          1       0       0       0       0       0       0
+  1363 ;;      Totals:         1       0       0       0       0       0       0
+  1364 ;;Total ram usage:        1 bytes
+  1365 ;; Hardware stack levels used: 1
+  1366 ;; Hardware stack levels required when called: 1
+  1367 ;; This function calls:
+  1368 ;;		_CH375_ReadData
+  1369 ;;		_CH375_WriteCmd
+  1370 ;; This function is called by:
+  1371 ;;		_USB_Init
+  1372 ;; This function uses a non-reentrant model
+  1373 ;;
+  1374                           
+  1375                           	psect	text6
+  1376   007C0C                     __ptext6:
+  1377                           	callstack 0
+  1378   007C0C                     _CH375_TestConnect:
+  1379                           	callstack 28
+  1380   007C0C                     
+  1381                           ;main_2.c: 168:     CH375_WriteCmd(0x16);
+  1382   007C0C  0E16               	movlw	22
+  1383   007C0E  ECE2  F03D         	call	_CH375_WriteCmd
+  1384   007C12                     
+  1385                           ;main_2.c: 169:     _delay((unsigned long)((2)*(4000000/4000.0)));
+  1386   007C12  0E03               	movlw	3
+  1387   007C14  6E02               	movwf	??_CH375_TestConnect^0,c
+  1388   007C16  0E98               	movlw	152
+  1389   007C18                     u217:
+  1390   007C18  2EE8               	decfsz	wreg,f,c
+  1391   007C1A  D7FE               	bra	u217
+  1392   007C1C  2E02               	decfsz	??_CH375_TestConnect^0,f,c
+  1393   007C1E  D7FC               	bra	u217
+  1394   007C20                     
+  1395                           ;main_2.c: 170:     return CH375_ReadData();
+  1396   007C20  ECFA  F03D         	call	_CH375_ReadData	;wreg free
+  1397   007C24  0012               	return		;funcret
+  1398   007C26                     __end_of_CH375_TestConnect:
+  1399                           	callstack 0
+  1400                           
+  1401 ;; *************** function _CH375_ReadData *****************
+  1402 ;; Defined at:
+  1403 ;;		line 140 in file "main_2.c"
+  1404 ;; Parameters:    Size  Location     Type
+  1405 ;;		None
+  1406 ;; Auto vars:     Size  Location     Type
+  1407 ;;  v               1    0[COMRAM] unsigned char 
+  1408 ;; Return value:  Size  Location     Type
+  1409 ;;                  1    wreg      unsigned char 
+  1410 ;; Registers used:
+  1411 ;;		wreg, status,2
+  1412 ;; Tracked objects:
+  1413 ;;		On entry : 0/0
+  1414 ;;		On exit  : 0/0
+  1415 ;;		Unchanged: 0/0
+  1416 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1417 ;;      Params:         0       0       0       0       0       0       0
+  1418 ;;      Locals:         1       0       0       0       0       0       0
+  1419 ;;      Temps:          0       0       0       0       0       0       0
+  1420 ;;      Totals:         1       0       0       0       0       0       0
+  1421 ;;Total ram usage:        1 bytes
+  1422 ;; Hardware stack levels used: 1
+  1423 ;; This function calls:
+  1424 ;;		Nothing
+  1425 ;; This function is called by:
+  1426 ;;		_CH375_TestConnect
+  1427 ;;		_USB_Task
+  1428 ;; This function uses a non-reentrant model
+  1429 ;;
+  1430                           
+  1431                           	psect	text7
+  1432   007BF4                     __ptext7:
+  1433                           	callstack 0
+  1434   007BF4                     _CH375_ReadData:
+  1435                           	callstack 29
+  1436   007BF4                     
+  1437                           ;main_2.c: 142:     uint8_t v;;main_2.c: 144:     TRISD = 0xFF;
+  1438   007BF4  6895               	setf	149,c	;volatile
+  1439                           
+  1440                           ;main_2.c: 145:     PORTBbits.RB0 = 0;
+  1441   007BF6  9081               	bcf	129,0,c	;volatile
+  1442                           
+  1443                           ;main_2.c: 146:     PORTBbits.RB2 = 1;
+  1444   007BF8  8481               	bsf	129,2,c	;volatile
+  1445                           
+  1446                           ;main_2.c: 147:     PORTBbits.RB3 = 0;
+  1447   007BFA  9681               	bcf	129,3,c	;volatile
+  1448                           
+  1449                           ;main_2.c: 149:     PORTBbits.RB1 = 0;
+  1450   007BFC  9281               	bcf	129,1,c	;volatile
+  1451                           
+  1452                           ;main_2.c: 150:     _delay((unsigned long)((2)*(4000000/4000000.0)));
+  1453   007BFE  D000               	nop2		;2 cycle nop
+  1454                           
+  1455                           ;main_2.c: 151:     v = PORTD;
+  1456   007C00  CF83 F001          	movff	3971,CH375_ReadData@v	;volatile
+  1457                           
+  1458                           ;main_2.c: 152:     PORTBbits.RB1 = 1;
+  1459   007C04  8281               	bsf	129,1,c	;volatile
+  1460                           
+  1461                           ;main_2.c: 154:     PORTBbits.RB3 = 1;
+  1462   007C06  8681               	bsf	129,3,c	;volatile
+  1463   007C08                     
+  1464                           ;main_2.c: 156:     return v;
+  1465   007C08  5001               	movf	CH375_ReadData@v^0,w,c
+  1466   007C0A  0012               	return		;funcret
+  1467   007C0C                     __end_of_CH375_ReadData:
+  1468                           	callstack 0
+  1469                           
+  1470 ;; *************** function _CH375_SetMode *****************
+  1471 ;; Defined at:
+  1472 ;;		line 159 in file "main_2.c"
+  1473 ;; Parameters:    Size  Location     Type
+  1474 ;;  mode            1    wreg     unsigned char 
+  1475 ;; Auto vars:     Size  Location     Type
+  1476 ;;  mode            1    2[COMRAM] unsigned char 
+  1477 ;; Return value:  Size  Location     Type
+  1478 ;;                  1    wreg      void 
+  1479 ;; Registers used:
+  1480 ;;		wreg, status,2, cstack
+  1481 ;; Tracked objects:
+  1482 ;;		On entry : 0/0
+  1483 ;;		On exit  : 0/0
+  1484 ;;		Unchanged: 0/0
+  1485 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1486 ;;      Params:         0       0       0       0       0       0       0
+  1487 ;;      Locals:         1       0       0       0       0       0       0
+  1488 ;;      Temps:          1       0       0       0       0       0       0
+  1489 ;;      Totals:         2       0       0       0       0       0       0
+  1490 ;;Total ram usage:        2 bytes
+  1491 ;; Hardware stack levels used: 1
+  1492 ;; Hardware stack levels required when called: 1
+  1493 ;; This function calls:
+  1494 ;;		_CH375_WriteCmd
+  1495 ;;		_CH375_WriteData
+  1496 ;; This function is called by:
+  1497 ;;		_USB_Init
+  1498 ;; This function uses a non-reentrant model
+  1499 ;;
+  1500                           
+  1501                           	psect	text8
+  1502   007C26                     __ptext8:
+  1503                           	callstack 0
+  1504   007C26                     _CH375_SetMode:
+  1505                           	callstack 28
+  1506                           
+  1507                           ;incstack = 0
+  1508                           ;CH375_SetMode@mode stored from wreg
+  1509   007C26  6E03               	movwf	CH375_SetMode@mode^0,c
+  1510   007C28                     
+  1511                           ;main_2.c: 159: void CH375_SetMode(uint8_t mode);main_2.c: 160: {;main_2.c: 161:     CH3
+      +                          75_WriteCmd(0x15);
+  1512   007C28  0E15               	movlw	21
+  1513   007C2A  ECE2  F03D         	call	_CH375_WriteCmd
+  1514   007C2E                     
+  1515                           ;main_2.c: 162:     CH375_WriteData(mode);
+  1516   007C2E  5003               	movf	CH375_SetMode@mode^0,w,c
+  1517   007C30  ECEE  F03D         	call	_CH375_WriteData
+  1518   007C34                     
+  1519                           ;main_2.c: 163:     _delay((unsigned long)((10)*(4000000/4000.0)));
+  1520   007C34  0E0D               	movlw	13
+  1521   007C36  6E02               	movwf	??_CH375_SetMode^0,c
+  1522   007C38  0EFC               	movlw	252
+  1523   007C3A                     u227:
+  1524   007C3A  2EE8               	decfsz	wreg,f,c
+  1525   007C3C  D7FE               	bra	u227
+  1526   007C3E  2E02               	decfsz	??_CH375_SetMode^0,f,c
+  1527   007C40  D7FC               	bra	u227
+  1528   007C42  0012               	return		;funcret
+  1529   007C44                     __end_of_CH375_SetMode:
+  1530                           	callstack 0
+  1531                           
+  1532 ;; *************** function _CH375_WriteData *****************
+  1533 ;; Defined at:
+  1534 ;;		line 124 in file "main_2.c"
+  1535 ;; Parameters:    Size  Location     Type
+  1536 ;;  d               1    wreg     unsigned char 
+  1537 ;; Auto vars:     Size  Location     Type
+  1538 ;;  d               1    0[COMRAM] unsigned char 
+  1539 ;; Return value:  Size  Location     Type
+  1540 ;;                  1    wreg      void 
+  1541 ;; Registers used:
+  1542 ;;		wreg
+  1543 ;; Tracked objects:
+  1544 ;;		On entry : 0/0
+  1545 ;;		On exit  : 0/0
+  1546 ;;		Unchanged: 0/0
+  1547 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1548 ;;      Params:         0       0       0       0       0       0       0
+  1549 ;;      Locals:         1       0       0       0       0       0       0
+  1550 ;;      Temps:          0       0       0       0       0       0       0
+  1551 ;;      Totals:         1       0       0       0       0       0       0
+  1552 ;;Total ram usage:        1 bytes
+  1553 ;; Hardware stack levels used: 1
+  1554 ;; This function calls:
+  1555 ;;		Nothing
+  1556 ;; This function is called by:
+  1557 ;;		_CH375_SetMode
+  1558 ;;		_USB_Task
+  1559 ;; This function uses a non-reentrant model
+  1560 ;;
+  1561                           
+  1562                           	psect	text9
+  1563   007BDC                     __ptext9:
+  1564                           	callstack 0
+  1565   007BDC                     _CH375_WriteData:
+  1566                           	callstack 29
+  1567                           
+  1568                           ;incstack = 0
+  1569                           ;CH375_WriteData@d stored from wreg
+  1570   007BDC  6E01               	movwf	CH375_WriteData@d^0,c
+  1571   007BDE                     
+  1572                           ;main_2.c: 124: void CH375_WriteData(uint8_t d);main_2.c: 125: {;main_2.c: 126:     TRIS
+      +                          D = 0x00;
+  1573   007BDE  6A95               	clrf	149,c	;volatile
+  1574                           
+  1575                           ;main_2.c: 127:     PORTBbits.RB0 = 0;
+  1576   007BE0  9081               	bcf	129,0,c	;volatile
+  1577                           
+  1578                           ;main_2.c: 128:     PORTBbits.RB1 = 1;
+  1579   007BE2  8281               	bsf	129,1,c	;volatile
+  1580                           
+  1581                           ;main_2.c: 129:     PORTBbits.RB3 = 0;
+  1582   007BE4  9681               	bcf	129,3,c	;volatile
+  1583   007BE6                     
+  1584                           ;main_2.c: 131:     PORTD = d;
+  1585   007BE6  C001  FF83         	movff	CH375_WriteData@d,3971	;volatile
+  1586   007BEA                     
+  1587                           ;main_2.c: 133:     PORTBbits.RB2 = 0;
+  1588   007BEA  9481               	bcf	129,2,c	;volatile
+  1589   007BEC                     
+  1590                           ;main_2.c: 134:     _delay((unsigned long)((2)*(4000000/4000000.0)));
+  1591   007BEC  D000               	nop2		;2 cycle nop
+  1592   007BEE                     
+  1593                           ;main_2.c: 135:     PORTBbits.RB2 = 1;
+  1594   007BEE  8481               	bsf	129,2,c	;volatile
+  1595   007BF0                     
+  1596                           ;main_2.c: 137:     PORTBbits.RB3 = 1;
+  1597   007BF0  8681               	bsf	129,3,c	;volatile
+  1598   007BF2  0012               	return		;funcret
+  1599   007BF4                     __end_of_CH375_WriteData:
+  1600                           	callstack 0
+  1601                           
+  1602 ;; *************** function _CH375_WriteCmd *****************
+  1603 ;; Defined at:
+  1604 ;;		line 108 in file "main_2.c"
+  1605 ;; Parameters:    Size  Location     Type
+  1606 ;;  cmd             1    wreg     unsigned char 
+  1607 ;; Auto vars:     Size  Location     Type
+  1608 ;;  cmd             1    0[COMRAM] unsigned char 
+  1609 ;; Return value:  Size  Location     Type
+  1610 ;;                  1    wreg      void 
+  1611 ;; Registers used:
+  1612 ;;		wreg
+  1613 ;; Tracked objects:
+  1614 ;;		On entry : 0/0
+  1615 ;;		On exit  : 0/0
+  1616 ;;		Unchanged: 0/0
+  1617 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1618 ;;      Params:         0       0       0       0       0       0       0
+  1619 ;;      Locals:         1       0       0       0       0       0       0
+  1620 ;;      Temps:          0       0       0       0       0       0       0
+  1621 ;;      Totals:         1       0       0       0       0       0       0
+  1622 ;;Total ram usage:        1 bytes
+  1623 ;; Hardware stack levels used: 1
+  1624 ;; This function calls:
+  1625 ;;		Nothing
+  1626 ;; This function is called by:
+  1627 ;;		_CH375_SetMode
+  1628 ;;		_CH375_TestConnect
+  1629 ;;		_USB_Task
+  1630 ;; This function uses a non-reentrant model
+  1631 ;;
+  1632                           
+  1633                           	psect	text10
+  1634   007BC4                     __ptext10:
+  1635                           	callstack 0
+  1636   007BC4                     _CH375_WriteCmd:
+  1637                           	callstack 29
+  1638                           
+  1639                           ;incstack = 0
+  1640                           ;CH375_WriteCmd@cmd stored from wreg
+  1641   007BC4  6E01               	movwf	CH375_WriteCmd@cmd^0,c
+  1642   007BC6                     
+  1643                           ;main_2.c: 108: void CH375_WriteCmd(uint8_t cmd);main_2.c: 109: {;main_2.c: 110:     TRI
+      +                          SD = 0x00;
+  1644   007BC6  6A95               	clrf	149,c	;volatile
+  1645                           
+  1646                           ;main_2.c: 111:     PORTBbits.RB0 = 1;
+  1647   007BC8  8081               	bsf	129,0,c	;volatile
+  1648                           
+  1649                           ;main_2.c: 112:     PORTBbits.RB1 = 1;
+  1650   007BCA  8281               	bsf	129,1,c	;volatile
+  1651                           
+  1652                           ;main_2.c: 113:     PORTBbits.RB3 = 0;
+  1653   007BCC  9681               	bcf	129,3,c	;volatile
+  1654   007BCE                     
+  1655                           ;main_2.c: 115:     PORTD = cmd;
+  1656   007BCE  C001  FF83         	movff	CH375_WriteCmd@cmd,3971	;volatile
+  1657   007BD2                     
+  1658                           ;main_2.c: 117:     PORTBbits.RB2 = 0;
+  1659   007BD2  9481               	bcf	129,2,c	;volatile
+  1660   007BD4                     
+  1661                           ;main_2.c: 118:     _delay((unsigned long)((2)*(4000000/4000000.0)));
+  1662   007BD4  D000               	nop2		;2 cycle nop
+  1663   007BD6                     
+  1664                           ;main_2.c: 119:     PORTBbits.RB2 = 1;
+  1665   007BD6  8481               	bsf	129,2,c	;volatile
+  1666   007BD8                     
+  1667                           ;main_2.c: 121:     PORTBbits.RB3 = 1;
+  1668   007BD8  8681               	bsf	129,3,c	;volatile
+  1669   007BDA  0012               	return		;funcret
+  1670   007BDC                     __end_of_CH375_WriteCmd:
+  1671                           	callstack 0
+  1672                           
+  1673 ;; *************** function _CH375_Reset *****************
+  1674 ;; Defined at:
+  1675 ;;		line 100 in file "main_2.c"
+  1676 ;; Parameters:    Size  Location     Type
+  1677 ;;		None
+  1678 ;; Auto vars:     Size  Location     Type
+  1679 ;;		None
+  1680 ;; Return value:  Size  Location     Type
+  1681 ;;                  1    wreg      void 
+  1682 ;; Registers used:
+  1683 ;;		wreg
+  1684 ;; Tracked objects:
+  1685 ;;		On entry : 0/0
+  1686 ;;		On exit  : 0/0
+  1687 ;;		Unchanged: 0/0
+  1688 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1689 ;;      Params:         0       0       0       0       0       0       0
+  1690 ;;      Locals:         0       0       0       0       0       0       0
+  1691 ;;      Temps:          1       0       0       0       0       0       0
+  1692 ;;      Totals:         1       0       0       0       0       0       0
+  1693 ;;Total ram usage:        1 bytes
+  1694 ;; Hardware stack levels used: 1
+  1695 ;; This function calls:
+  1696 ;;		Nothing
+  1697 ;; This function is called by:
+  1698 ;;		_USB_Init
+  1699 ;; This function uses a non-reentrant model
+  1700 ;;
+  1701                           
+  1702                           	psect	text11
+  1703   007C68                     __ptext11:
+  1704                           	callstack 0
+  1705   007C68                     _CH375_Reset:
+  1706                           	callstack 29
+  1707   007C68                     
+  1708                           ;main_2.c: 102:     PORTBbits.RB4 = 0;
+  1709   007C68  9881               	bcf	129,4,c	;volatile
+  1710   007C6A                     
+  1711                           ;main_2.c: 103:     _delay((unsigned long)((5)*(4000000/4000.0)));
+  1712   007C6A  0E07               	movlw	7
+  1713   007C6C  6E01               	movwf	??_CH375_Reset^0,c
+  1714   007C6E  0E7D               	movlw	125
+  1715   007C70                     u237:
+  1716   007C70  2EE8               	decfsz	wreg,f,c
+  1717   007C72  D7FE               	bra	u237
+  1718   007C74  2E01               	decfsz	??_CH375_Reset^0,f,c
+  1719   007C76  D7FC               	bra	u237
+  1720   007C78  0000               	nop	
+  1721   007C7A                     
+  1722                           ;main_2.c: 104:     PORTBbits.RB4 = 1;
+  1723   007C7A  8881               	bsf	129,4,c	;volatile
+  1724                           
+  1725                           ;main_2.c: 105:     _delay((unsigned long)((20)*(4000000/4000.0)));
+  1726   007C7C  0E1A               	movlw	26
+  1727   007C7E  6E01               	movwf	??_CH375_Reset^0,c
+  1728   007C80  0EF8               	movlw	248
+  1729   007C82                     u247:
+  1730   007C82  2EE8               	decfsz	wreg,f,c
+  1731   007C84  D7FE               	bra	u247
+  1732   007C86  2E01               	decfsz	??_CH375_Reset^0,f,c
+  1733   007C88  D7FC               	bra	u247
+  1734   007C8A  D000               	nop2	
+  1735   007C8C  0012               	return		;funcret
+  1736   007C8E                     __end_of_CH375_Reset:
+  1737                           	callstack 0
+  1738                           
+  1739 ;; *************** function _UART_Init *****************
+  1740 ;; Defined at:
+  1741 ;;		line 72 in file "main_2.c"
+  1742 ;; Parameters:    Size  Location     Type
+  1743 ;;		None
+  1744 ;; Auto vars:     Size  Location     Type
+  1745 ;;		None
+  1746 ;; Return value:  Size  Location     Type
+  1747 ;;                  1    wreg      void 
+  1748 ;; Registers used:
+  1749 ;;		wreg, status,2
+  1750 ;; Tracked objects:
+  1751 ;;		On entry : 0/0
+  1752 ;;		On exit  : 0/0
+  1753 ;;		Unchanged: 0/0
+  1754 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+  1755 ;;      Params:         0       0       0       0       0       0       0
+  1756 ;;      Locals:         0       0       0       0       0       0       0
+  1757 ;;      Temps:          0       0       0       0       0       0       0
+  1758 ;;      Totals:         0       0       0       0       0       0       0
+  1759 ;;Total ram usage:        0 bytes
+  1760 ;; Hardware stack levels used: 1
+  1761 ;; This function calls:
+  1762 ;;		Nothing
+  1763 ;; This function is called by:
+  1764 ;;		_main
+  1765 ;; This function uses a non-reentrant model
+  1766 ;;
+  1767                           
+  1768                           	psect	text12
+  1769   007B9C                     __ptext12:
+  1770                           	callstack 0
+  1771   007B9C                     _UART_Init:
+  1772                           	callstack 30
+  1773   007B9C                     
+  1774                           ;main_2.c: 74:     TRISC6 = 0;
+  1775   007B9C  9C94               	bcf	3988,6,c	;volatile
+  1776                           
+  1777                           ;main_2.c: 75:     TRISC7 = 1;
+  1778   007B9E  8E94               	bsf	3988,7,c	;volatile
+  1779   007BA0                     
+  1780                           ;main_2.c: 77:     TXSTA = 0b00100000;
+  1781   007BA0  0E20               	movlw	32
+  1782   007BA2  6EAC               	movwf	172,c	;volatile
+  1783                           
+  1784                           ;main_2.c: 78:     RCSTA = 0b10010000;
+  1785   007BA4  0E90               	movlw	144
+  1786   007BA6  6EAB               	movwf	171,c	;volatile
+  1787                           
+  1788                           ;main_2.c: 79:     SPBRG = 25;
+  1789   007BA8  0E19               	movlw	25
+  1790   007BAA  6EAF               	movwf	175,c	;volatile
+  1791   007BAC  0012               	return		;funcret
+  1792   007BAE                     __end_of_UART_Init:
+  1793                           	callstack 0
+  1794                           
+  1795                           	psect	rparam
+  1796   000001                     ___rparam_used  equ	1
+  1797   000000                     ___param_bank   equ	0
+  1798   000000                     __Lparam        equ	__Lrparam
+  1799   000000                     __Hparam        equ	__Hrparam
+  1800                           
+  1801                           	psect	idloc
+  1802                           
+  1803                           ;Config register IDLOC0 @ 0x200000
+  1804                           ;	unspecified, using default values
+  1805   200000                     	org	2097152
+  1806   200000  FF                 	db	255
+  1807                           
+  1808                           ;Config register IDLOC1 @ 0x200001
+  1809                           ;	unspecified, using default values
+  1810   200001                     	org	2097153
+  1811   200001  FF                 	db	255
+  1812                           
+  1813                           ;Config register IDLOC2 @ 0x200002
+  1814                           ;	unspecified, using default values
+  1815   200002                     	org	2097154
+  1816   200002  FF                 	db	255
+  1817                           
+  1818                           ;Config register IDLOC3 @ 0x200003
+  1819                           ;	unspecified, using default values
+  1820   200003                     	org	2097155
+  1821   200003  FF                 	db	255
+  1822                           
+  1823                           ;Config register IDLOC4 @ 0x200004
+  1824                           ;	unspecified, using default values
+  1825   200004                     	org	2097156
+  1826   200004  FF                 	db	255
+  1827                           
+  1828                           ;Config register IDLOC5 @ 0x200005
+  1829                           ;	unspecified, using default values
+  1830   200005                     	org	2097157
+  1831   200005  FF                 	db	255
+  1832                           
+  1833                           ;Config register IDLOC6 @ 0x200006
+  1834                           ;	unspecified, using default values
+  1835   200006                     	org	2097158
+  1836   200006  FF                 	db	255
+  1837                           
+  1838                           ;Config register IDLOC7 @ 0x200007
+  1839                           ;	unspecified, using default values
+  1840   200007                     	org	2097159
+  1841   200007  FF                 	db	255
+  1842                           
+  1843                           	psect	config
+  1844                           
+  1845                           ; Padding undefined space
+  1846   300000                     	org	3145728
+  1847   300000  FF                 	db	255
+  1848                           
+  1849                           ;Config register CONFIG1H @ 0x300001
+  1850                           ;	Oscillator Selection bits
+  1851                           ;	OSC = INTIO67, Internal oscillator block, port function on RA6 and RA7
+  1852                           ;	Fail-Safe Clock Monitor Enable bit
+  1853                           ;	FCMEN = 0x0, unprogrammed default
+  1854                           ;	Internal/External Oscillator Switchover bit
+  1855                           ;	IESO = 0x0, unprogrammed default
+  1856   300001                     	org	3145729
+  1857   300001  08                 	db	8
+  1858                           
+  1859                           ;Config register CONFIG2L @ 0x300002
+  1860                           ;	unspecified, using default values
+  1861                           ;	Power-up Timer Enable bit
+  1862                           ;	PWRT = 0x1, unprogrammed default
+  1863                           ;	Brown-out Reset Enable bits
+  1864                           ;	BOREN = 0x3, unprogrammed default
+  1865                           ;	Brown Out Reset Voltage bits
+  1866                           ;	BORV = 0x3, unprogrammed default
+  1867   300002                     	org	3145730
+  1868   300002  1F                 	db	31
+  1869                           
+  1870                           ;Config register CONFIG2H @ 0x300003
+  1871                           ;	Watchdog Timer Enable bit
+  1872                           ;	WDT = OFF, WDT disabled (control is placed on the SWDTEN bit)
+  1873                           ;	Watchdog Timer Postscale Select bits
+  1874                           ;	WDTPS = 0xF, unprogrammed default
+  1875   300003                     	org	3145731
+  1876   300003  1E                 	db	30
+  1877                           
+  1878                           ; Padding undefined space
+  1879   300004                     	org	3145732
+  1880   300004  FF                 	db	255
+  1881                           
+  1882                           ;Config register CONFIG3H @ 0x300005
+  1883                           ;	CCP2 MUX bit
+  1884                           ;	CCP2MX = 0x1, unprogrammed default
+  1885                           ;	PORTB A/D Enable bit
+  1886                           ;	PBADEN = OFF, PORTB<4:0> pins are configured as digital I/O on Reset
+  1887                           ;	Low-Power Timer1 Oscillator Enable bit
+  1888                           ;	LPT1OSC = 0x0, unprogrammed default
+  1889                           ;	MCLR Pin Enable bit
+  1890                           ;	MCLRE = 0x1, unprogrammed default
+  1891   300005                     	org	3145733
+  1892   300005  81                 	db	129
+  1893                           
+  1894                           ;Config register CONFIG4L @ 0x300006
+  1895                           ;	Stack Full/Underflow Reset Enable bit
+  1896                           ;	STVREN = 0x1, unprogrammed default
+  1897                           ;	Single-Supply ICSP Enable bit
+  1898                           ;	LVP = OFF, Single-Supply ICSP disabled
+  1899                           ;	Extended Instruction Set Enable bit
+  1900                           ;	XINST = 0x0, unprogrammed default
+  1901                           ;	Background Debugger Enable bit
+  1902                           ;	DEBUG = 0x1, unprogrammed default
+  1903   300006                     	org	3145734
+  1904   300006  81                 	db	129
+  1905                           
+  1906                           ; Padding undefined space
+  1907   300007                     	org	3145735
+  1908   300007  FF                 	db	255
+  1909                           
+  1910                           ;Config register CONFIG5L @ 0x300008
+  1911                           ;	unspecified, using default values
+  1912                           ;	Code Protection bit
+  1913                           ;	CP0 = 0x1, unprogrammed default
+  1914                           ;	Code Protection bit
+  1915                           ;	CP1 = 0x1, unprogrammed default
+  1916                           ;	Code Protection bit
+  1917                           ;	CP2 = 0x1, unprogrammed default
+  1918                           ;	Code Protection bit
+  1919                           ;	CP3 = 0x1, unprogrammed default
+  1920   300008                     	org	3145736
+  1921   300008  0F                 	db	15
+  1922                           
+  1923                           ;Config register CONFIG5H @ 0x300009
+  1924                           ;	unspecified, using default values
+  1925                           ;	Boot Block Code Protection bit
+  1926                           ;	CPB = 0x1, unprogrammed default
+  1927                           ;	Data EEPROM Code Protection bit
+  1928                           ;	CPD = 0x1, unprogrammed default
+  1929   300009                     	org	3145737
+  1930   300009  C0                 	db	192
+  1931                           
+  1932                           ;Config register CONFIG6L @ 0x30000A
+  1933                           ;	unspecified, using default values
+  1934                           ;	Write Protection bit
+  1935                           ;	WRT0 = 0x1, unprogrammed default
+  1936                           ;	Write Protection bit
+  1937                           ;	WRT1 = 0x1, unprogrammed default
+  1938                           ;	Write Protection bit
+  1939                           ;	WRT2 = 0x1, unprogrammed default
+  1940                           ;	Write Protection bit
+  1941                           ;	WRT3 = 0x1, unprogrammed default
+  1942   30000A                     	org	3145738
+  1943   30000A  0F                 	db	15
+  1944                           
+  1945                           ;Config register CONFIG6H @ 0x30000B
+  1946                           ;	unspecified, using default values
+  1947                           ;	Configuration Register Write Protection bit
+  1948                           ;	WRTC = 0x1, unprogrammed default
+  1949                           ;	Boot Block Write Protection bit
+  1950                           ;	WRTB = 0x1, unprogrammed default
+  1951                           ;	Data EEPROM Write Protection bit
+  1952                           ;	WRTD = 0x1, unprogrammed default
+  1953   30000B                     	org	3145739
+  1954   30000B  E0                 	db	224
+  1955                           
+  1956                           ;Config register CONFIG7L @ 0x30000C
+  1957                           ;	unspecified, using default values
+  1958                           ;	Table Read Protection bit
+  1959                           ;	EBTR0 = 0x1, unprogrammed default
+  1960                           ;	Table Read Protection bit
+  1961                           ;	EBTR1 = 0x1, unprogrammed default
+  1962                           ;	Table Read Protection bit
+  1963                           ;	EBTR2 = 0x1, unprogrammed default
+  1964                           ;	Table Read Protection bit
+  1965                           ;	EBTR3 = 0x1, unprogrammed default
+  1966   30000C                     	org	3145740
+  1967   30000C  0F                 	db	15
+  1968                           
+  1969                           ;Config register CONFIG7H @ 0x30000D
+  1970                           ;	unspecified, using default values
+  1971                           ;	Boot Block Table Read Protection bit
+  1972                           ;	EBTRB = 0x1, unprogrammed default
+  1973   30000D                     	org	3145741
+  1974   30000D  40                 	db	64
+  1975                           tosu	equ	0xFFF
+  1976                           tosh	equ	0xFFE
+  1977                           tosl	equ	0xFFD
+  1978                           stkptr	equ	0xFFC
+  1979                           pclatu	equ	0xFFB
+  1980                           pclath	equ	0xFFA
+  1981                           pcl	equ	0xFF9
+  1982                           tblptru	equ	0xFF8
+  1983                           tblptrh	equ	0xFF7
+  1984                           tblptrl	equ	0xFF6
+  1985                           tablat	equ	0xFF5
+  1986                           prodh	equ	0xFF4
+  1987                           prodl	equ	0xFF3
+  1988                           indf0	equ	0xFEF
+  1989                           postinc0	equ	0xFEE
+  1990                           postdec0	equ	0xFED
+  1991                           preinc0	equ	0xFEC
+  1992                           plusw0	equ	0xFEB
+  1993                           fsr0h	equ	0xFEA
+  1994                           fsr0l	equ	0xFE9
+  1995                           wreg	equ	0xFE8
+  1996                           indf1	equ	0xFE7
+  1997                           postinc1	equ	0xFE6
+  1998                           postdec1	equ	0xFE5
+  1999                           preinc1	equ	0xFE4
+  2000                           plusw1	equ	0xFE3
+  2001                           fsr1h	equ	0xFE2
+  2002                           fsr1l	equ	0xFE1
+  2003                           bsr	equ	0xFE0
+  2004                           indf2	equ	0xFDF
+  2005                           postinc2	equ	0xFDE
+  2006                           postdec2	equ	0xFDD
+  2007                           preinc2	equ	0xFDC
+  2008                           plusw2	equ	0xFDB
+  2009                           fsr2h	equ	0xFDA
+  2010                           fsr2l	equ	0xFD9
+  2011                           status	equ	0xFD8
+
+Data Sizes:
+    Strings     140
+    Constant    256
+    Data        0
+    BSS         0
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM          127     16      16
+    BANK0           128      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+    BANK3           256      0       0
+    BANK4           256      0       0
+    BANK5           256      0       0
+
+Pointer List with Targets:
+
+    UART_Write_Text@s	PTR const unsigned char  size(2) Largest target is 31
+		 -> STR_1(CODE[31]), STR_2(CODE[21]), STR_3(CODE[16]), STR_4(CODE[3]), 
+		 -> STR_5(CODE[24]), STR_6(CODE[15]), STR_7(CODE[15]), STR_8(CODE[18]), 
+
+
+Critical Paths under _main in COMRAM
+
+    _main->_USB_Task
+    _USB_Task->_HID_KeycodeToASCII
+    _USB_Init->_CH375_SetMode
+    _USB_Init->_UART_Write_Text
+    _UART_Write_Text->_UART_Write
+    _CH375_TestConnect->_CH375_ReadData
+    _CH375_TestConnect->_CH375_WriteCmd
+    _CH375_SetMode->_CH375_WriteCmd
+    _CH375_SetMode->_CH375_WriteData
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 0     0      0     679
+                          _UART_Init
+                    _UART_Write_Text
+                           _USB_Init
+                           _USB_Task
+ ---------------------------------------------------------------------------------
+ (1) _USB_Task                                            12    12      0     386
+                                              4 COMRAM    12    12      0
+                     _CH375_ReadData
+                     _CH375_WriteCmd
+                    _CH375_WriteData
+                 _HID_KeycodeToASCII
+                         _UART_Write
+ ---------------------------------------------------------------------------------
+ (2) _HID_KeycodeToASCII                                   4     3      1     120
+                                              0 COMRAM     4     3      1
+ ---------------------------------------------------------------------------------
+ (1) _USB_Init                                             3     3      0     225
+                                              3 COMRAM     3     3      0
+                        _CH375_Reset
+                      _CH375_SetMode
+                  _CH375_TestConnect
+                         _UART_Write
+                    _UART_Write_Text
+ ---------------------------------------------------------------------------------
+ (2) _UART_Write_Text                                      2     0      2      68
+                                              1 COMRAM     2     0      2
+                         _UART_Write
+ ---------------------------------------------------------------------------------
+ (2) _UART_Write                                           1     1      0      15
+                                              0 COMRAM     1     1      0
+ ---------------------------------------------------------------------------------
+ (2) _CH375_TestConnect                                    1     1      0      30
+                                              1 COMRAM     1     1      0
+                     _CH375_ReadData
+                     _CH375_WriteCmd
+ ---------------------------------------------------------------------------------
+ (2) _CH375_ReadData                                       1     1      0      15
+                                              0 COMRAM     1     1      0
+ ---------------------------------------------------------------------------------
+ (2) _CH375_SetMode                                        2     2      0      45
+                                              1 COMRAM     2     2      0
+                     _CH375_WriteCmd
+                    _CH375_WriteData
+ ---------------------------------------------------------------------------------
+ (2) _CH375_WriteData                                      1     1      0      15
+                                              0 COMRAM     1     1      0
+ ---------------------------------------------------------------------------------
+ (2) _CH375_WriteCmd                                       1     1      0      15
+                                              0 COMRAM     1     1      0
+ ---------------------------------------------------------------------------------
+ (2) _CH375_Reset                                          1     1      0       0
+                                              0 COMRAM     1     1      0
+ ---------------------------------------------------------------------------------
+ (1) _UART_Init                                            0     0      0       0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 2
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _UART_Init
+   _UART_Write_Text
+     _UART_Write
+   _USB_Init
+     _CH375_Reset
+     _CH375_SetMode
+       _CH375_WriteCmd
+       _CH375_WriteData
+     _CH375_TestConnect
+       _CH375_ReadData
+       _CH375_WriteCmd
+     _UART_Write
+     _UART_Write_Text
+   _USB_Task
+     _CH375_ReadData
+     _CH375_WriteCmd
+     _CH375_WriteData
+     _HID_KeycodeToASCII
+     _UART_Write
+
+Address spaces:
+Name               Size   Autos  Total    Usage
+BITCOMRAM          127      0       0      0.0%
+BITBANK0           128      0       0      0.0%
+BITBANK1           256      0       0      0.0%
+BITBANK2           256      0       0      0.0%
+BITBANK3           256      0       0      0.0%
+BITBANK4           256      0       0      0.0%
+BITBANK5           256      0       0      0.0%
+BITBIGSFRh          82      0       0      0.0%
+BITBIGSFRlh         43      0       0      0.0%
+BITBIGSFRll          1      0       0      0.0%
+COMRAM             127     16      16     12.6%
+BANK0              128      0       0      0.0%
+BANK1              256      0       0      0.0%
+BANK2              256      0       0      0.0%
+BANK3              256      0       0      0.0%
+BANK4              256      0       0      0.0%
+BANK5              256      0       0      0.0%
+BIGRAM            1535      0       0      0.0%
+STACK                0      0       0      0.0%
+DATA                 0      0      16      0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V3.00 build 20241204225717 
+Symbol Table                                                                                   Fri Dec 12 21:24:32 2025
+
+                           l51 7BC2                             l60 7C8C                             l45 7BAC  
+                           l63 7BDA                             l72 7C42                             l48 7BB0  
+                           l57 7CC2                             l66 7BF2                             l82 7E6C  
+                           l90 7D96                             l75 7C24                             l69 7C0A  
+                           l97 7D14                             u10 7BBE                             u11 7BBA  
+                          l801 7BF4                            l803 7C08                            l821 7C28  
+                          l815 7C68                            l823 7C2E                            l831 7C20  
+                          l817 7C6A                            l825 7C34                            l921 7C8E  
+                          l851 7BA0                            l819 7C7A                            l827 7C0C  
+                          l923 7C92                            l931 7CD8                            l781 7BD2  
+                          l829 7C12                            l773 7BB0                            l925 7CA2  
+                          l933 7CEE                            l783 7BD4                            l791 7BE6  
+                          l775 7BBE                            l927 7CA6                            l951 7DB4  
+                          l943 7D98                            l935 7CFE                            l849 7B9C  
+                          l785 7BD6                            l777 7BC6                            l793 7BEA  
+                          l961 7DF2                            l953 7DC0                            l945 7D9C  
+                          l937 7D0E                            l929 7CC6                            l787 7BD8  
+                          l779 7BCE                            l795 7BEC                            l971 7E40  
+                          l963 7E02                            l955 7DCA                            l947 7DA8  
+                          l939 7D12                            l797 7BEE                            l789 7BDE  
+                          l973 7E4C                            l965 7E1E                            l957 7DD4  
+                          l949 7DAE                            l981 7D2E                            l799 7BF0  
+                          l975 7E60                            l967 7E2A                            l959 7DE0  
+                          l991 7D60                            l983 7D40                            l969 7E30  
+                          l993 7D62                            l985 7D46                            l977 7D16  
+                          l995 7D74                            l987 7D4C                            l979 7D28  
+                          l997 7D80                            l989 7D52                            l999 7D90  
+                          u100 7CC2                            u101 7CBE                            u110 7CEE  
+                          u111 7CEA                            u120 7CFE                            u121 7CFA  
+                          u130 7D0E                            u131 7D0A                            u140 7DF2  
+                          u141 7DEE                            u150 7D40                            u207 7E58  
+                          u151 7D3C                            u160 7D74                            u217 7C18  
+                          u161 7D70                            u170 7D90                            u227 7C3A  
+                          u171 7D8C                            u237 7C70                            u247 7C82  
+                          u187 7E0C                            u197 7E36                            wreg 0FE8  
+                         l1001 7C44                           l1003 7C48                           l1005 7C4C  
+                         l1007 7C58                           l1009 7C5C                           STR_1 7F6F  
+                         STR_2 7FA6                           STR_3 7FCD                           STR_4 7FA3  
+                         STR_5 7F8E                           STR_6 7FEC                           STR_7 7FDD  
+                         STR_8 7FBB                           _TXIF 7CF4                           _main 7C44  
+                         fsr2h 0FDA                           indf2 0FDF                           fsr2l 0FD9  
+                         start 7FFC                   ___param_bank 0000        __end_of_UART_Write_Text 7CC4  
+                        ?_main 0001                 USB_Task@status 000D                          _RCSTA 0FAB  
+                        _SPBRG 0FAF                          _PORTD 0F83                          _TRISD 0F95  
+                        _TXREG 0FAD                          _TXSTA 0FAC                    ?_UART_Write 0001  
+                        tablat 0FF5               __end_of_USB_Init 7E6E               __end_of_USB_Task 7D98  
+                        status 0FD8                __initialization 7B92                   __end_of_main 7C68  
+                       ??_main 0011                  __activetblptr 0002                         _OSCCON 0FD3  
+                       _TRISC6 7CA6                         _TRISC7 7CA7              __end_of_UART_Init 7BAE  
+              _CH375_WriteData 7BDC               ?_UART_Write_Text 0002                         isa$std 0001  
+                 __mediumconst 7E6E                         tblptrh 0FF7                         tblptrl 0FF6  
+                       tblptru 0FF8                  ??_CH375_Reset 0001                     __accesstop 0080  
+      __end_of__initialization 7B92     HID_KeycodeToASCII@modifier 0001                  ___rparam_used 0001  
+               __pcstackCOMRAM 0001                      ?_USB_Init 0001                      ?_USB_Task 0001  
+        __end_of_CH375_SetMode 7C44        __end_of_CH375_WriteData 7BF4            __end_of_CH375_Reset 7C8E  
+              CH375_ReadData@v 0001                     ??_USB_Init 0004                     ??_USB_Task 0005  
+                 ??_UART_Write 0001                        __Hparam 0000                        __Lparam 0000  
+           __end_of_UART_Write 7BC4                      USB_Task@c 000F                      USB_Task@i 0010  
+                      __pcinit 7B92                        __ramtop 0600                        __ptext0 7C44  
+                      __ptext1 7D16                        __ptext2 7CC4                        __ptext3 7D98  
+                      __ptext4 7C8E                        __ptext5 7BAE                        __ptext6 7C0C  
+                      __ptext7 7BF4                        __ptext8 7C26                        __ptext9 7BDC  
+                  UART_Write@c 0001           end_of_initialization 7B92                    _CH375_Reset 7C68  
+                __Lmediumconst 7E6E               ?_CH375_WriteData 0001                      _UART_Init 7B9C  
+                    _PORTBbits 0F81                     ?_UART_Init 0001            start_initialization 7B92  
+               _CH375_ReadData 7BF4     __end_of_HID_KeycodeToASCII 7D16              CH375_SetMode@mode 0003  
+__end_ofHID_KeycodeToASCII@map 7F6F                 _CH375_WriteCmd 7BC4         __end_of_CH375_ReadData 7C0C  
+                  USB_Task@buf 0005                    USB_Task@len 000E         __end_of_CH375_WriteCmd 7BDC  
+                __pmediumconst 7E6E                    ??_UART_Init 0001              _CH375_TestConnect 7C0C  
+                  __smallconst 7E6E                ?_CH375_ReadData 0001             ?_CH375_TestConnect 0001  
+            ??_UART_Write_Text 0004            ??_CH375_TestConnect 0002                   ?_CH375_Reset 0001  
+              ?_CH375_WriteCmd 0001            HID_KeycodeToASCII@c 0004      __end_of_CH375_TestConnect 7C26  
+                     _USB_Init 7D98                       _USB_Task 7D16                  _CH375_SetMode 7C26  
+                     __Hrparam 0000                       __Lrparam 0000                     USB_Init@st 0006  
+                     __ptext10 7BC4                       __ptext11 7C68                       __ptext12 7B9C  
+               ?_CH375_SetMode 0001             _HID_KeycodeToASCII 7CC4                       isa$xinst 0000  
+       HID_KeycodeToASCII@code 0003            ?_HID_KeycodeToASCII 0001           ??_HID_KeycodeToASCII 0002  
+        HID_KeycodeToASCII@map 7E6F               ??_CH375_ReadData 0001              CH375_WriteCmd@cmd 0001  
+              _UART_Write_Text 7C8E              ??_CH375_WriteData 0001                     _UART_Write 7BAE  
+             CH375_WriteData@d 0001                ??_CH375_SetMode 0002               ??_CH375_WriteCmd 0001  
+             UART_Write_Text@s 0002  

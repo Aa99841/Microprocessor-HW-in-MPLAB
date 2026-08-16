@@ -1,0 +1,6 @@
+Warning[205] C:\USERS\USER\MPLABXPROJECTS\LAB01.X\HARD.ASM 1 : Found directive in column 1. (List)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB01.X\HARD.ASM 13 : Found label after column 1. (FOURZERO)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB01.X\HARD.ASM 27 : Found label after column 1. (TWOZERO)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB01.X\HARD.ASM 37 : Found label after column 1. (ONEZERO)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB01.X\HARD.ASM 45 : Found label after column 1. (ZERO)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB01.X\HARD.ASM 53 : Found label after column 1. (lAST)

@@ -1,0 +1,8 @@
+Warning[205] C:\USERS\USER\MPLABXPROJECTS\2024MID.X\1A.ASM 1 : Found directive in column 1. (List)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2024MID.X\1A.ASM 10 : Found label after column 1. (main)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2024MID.X\1A.ASM 23 : Found label after column 1. (division)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2024MID.X\1A.ASM 33 : Found label after column 1. (COMPARE2)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2024MID.X\1A.ASM 39 : Found label after column 1. (DIV_SUB)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2024MID.X\1A.ASM 55 : Found label after column 1. (DIV_DONE)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2024MID.X\1A.ASM 62 : Found label after column 1. (LAST)
+Warning[205] C:\USERS\USER\MPLABXPROJECTS\2024MID.X\1A.ASM 66 : Found directive in column 1. (END)

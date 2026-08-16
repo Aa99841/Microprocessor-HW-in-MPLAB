@@ -1,0 +1,9 @@
+Warning[205] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\BASIC.ASM 61 : Found directive in column 1. (org)
+Warning[203] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\BASIC.ASM 63 : Found opcode in column 1. (goto)
+Warning[205] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\BASIC.ASM 66 : Found directive in column 1. (org)
+Warning[205] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\BASIC.ASM 78 : Found directive in column 1. (org)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\BASIC.ASM 85 : Found label after column 1. (SUB15)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\BASIC.ASM 102 : Found label after column 1. (ADD0)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\BASIC.ASM 119 : Found label after column 1. (BACK)
+Warning[202] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\BASIC.ASM 128 : Argument out of range.  Least significant bits used.
+Warning[205] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\BASIC.ASM 191 : Found directive in column 1. (END)

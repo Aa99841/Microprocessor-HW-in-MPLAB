@@ -1,0 +1,162 @@
+
+
+Microchip MPLAB XC8 Assembler V2.46 build 20240104201356 
+                                                                                                           Wed Oct 15 10:19:56 2025
+
+
+     1                           	processor	18F4520
+     2                           	pagewidth 132
+     3                           	opt	flic
+     4                           	psect	udata_acs,global,class=COMRAM,space=1,delta=1,lowdata,noexec
+     5                           	psect	udata_bank0,global,class=BANK0,space=1,delta=1,lowdata,noexec
+     6                           	psect	udata_bank1,global,class=BANK1,space=1,delta=1,lowdata,noexec
+     7                           	psect	udata_bank2,global,class=BANK2,space=1,delta=1,lowdata,noexec
+     8                           	psect	udata_bank3,global,class=BANK3,space=1,delta=1,lowdata,noexec
+     9                           	psect	udata_bank4,global,class=BANK4,space=1,delta=1,lowdata,noexec
+    10                           	psect	udata_bank5,global,class=BANK5,space=1,delta=1,lowdata,noexec
+    11                           	psect	udata,global,class=RAM,space=1,delta=1,noexec
+    12                           	psect	code,global,reloc=2,class=CODE,delta=1
+    13                           	psect	data,global,reloc=2,class=CONST,delta=1,noexec
+    14                           	psect	edata,global,class=EEDATA,space=3,delta=1,noexec
+    15                           	psect	mytext,local,reloc=2,class=CODE,delta=1
+    16  0000                     
+    17                           	psect	edata
+    18  0000                     stk_offset	set	0
+    19  0000                     auto_size	set	0
+    20                           
+    21                           ; stack_auto defines a symbol /name/_offset which equates to the
+    22                           ; stack offset of the auto object in question
+    23  0000'                    
+    24                           ; stack_param defines a symbol /name/_offset which equates to the
+    25                           ; stack offset of the parameter object in question
+    26  0000'                    
+    27                           ; alloc_stack adjusts the SP to allocate space for auto objects
+    28                           ; it also links in to the btemp symbol so that can be used
+    29  0000'                    
+    30                           ; restore_stack adjusts the SP to remove all auto and parameter
+    31                           ; objects from the stack prior to returning from a function
+    32  0000'                    
+    33                           	psect	mytext
+    34  0000'                    _is_prime:
+    35                           	callstack 0
+    36  0000' CFE8 FF8C          	movff	wreg,3980
+    37  0004' 0E01               	movlw	1
+    38  0006' 6E20               	movwf	32,c	;LOOP COUNT
+    39  0008' 0E01               	movlw	1
+    40  000A' 648C               	cpfsgt	3980,c	;IF(N <= 1) FALSE
+    41  000C' D024               	goto	FALSE
+    42  000E' 0E02               	movlw	2
+    43  0010' 628C               	cpfseq	3980,c	;IF(N = 2) TRUE
+    44  0012' D001               	goto	DIV_2
+    45  0014' D01E               	goto	TRUE
+    46  0016'                    DIV_2:
+    47  0016' A08C               	btfss	3980,0,c
+    48  0018' D01E               	goto	FALSE
+    49  001A'                    DIV_PART2:
+    50  001A' 2A20               	incf	32,f,c	;LOOP COUNT
+    51  001C' 2A20               	incf	32,f,c
+    52  001E' C020 F030          	movff	32,48
+    53  0022' C020 FFE8          	movff	32,wreg
+    54  0026' 0230               	mulwf	48,c	;LOOP COUNT^2
+    55  0028' CFF4 F030          	movff	prodh,48
+    56  002C' CFF3 F031          	movff	prodl,49
+    57  0030' 0E00               	movlw	0
+    58  0032' 6230               	cpfseq	48,c
+    59  0034' D00E               	goto	TRUE
+    60  0036' CF8C FFE8          	movff	3980,wreg
+    61  003A' 6431               	cpfsgt	49,c	; IF(LOOP COUNT^2 > N) TRUE
+    62  003C' D001               	goto	CHECK
+    63  003E' D009               	goto	TRUE
+    64  0040'                    CHECK:
+    65  0040' CF8C F001          	movff	3980,1
+    66  0044' C020 F003          	movff	32,3
+    67  0048' D809               	rcall	division
+    68  004A' 0E00               	movlw	0
+    69  004C' 6213               	cpfseq	19,c
+    70  004E' D7E5               	goto	DIV_PART2
+    71  0050' D002               	goto	FALSE
+    72  0052'                    TRUE:
+    73  0052' 0E01               	movlw	1
+    74  0054' D001               	goto	TEST_DONE
+    75  0056'                    FALSE:
+    76  0056' 0EFF               	movlw	255
+    77  0058'                    TEST_DONE:
+    78  0058' 6E01               	movwf	1,c
+    79  005A' 0012               	return	
+    80  005C'                    division:
+    81  005C' 5000               	movf	0,w,c	;WREG = A
+    82  005E' 5C02               	subwf	2,w,c	;WREG = WREG - B
+    83  0060' E307               	bnc	DIV_SUB	;B < A
+    84  0062' 5000               	movf	0,w,c
+    85  0064' 6202               	cpfseq	2,c
+    86  0066' D00F               	goto	DIV_DONE
+    87  0068' 5003               	movf	3,w,c	;WREG = D
+    88  006A' 5C01               	subwf	1,w,c	;WREG = WREG - C
+    89  006C' E201               	bc	DIV_SUB	;C >= D
+    90  006E' D00B               	goto	DIV_DONE
+    91  0070'                    DIV_SUB:
+    92  0070' 0E01               	movlw	1
+    93  0072' 2411               	addwf	17,w,c
+    94  0074' 6E11               	movwf	17,c
+    95  0076' 0E00               	movlw	0
+    96  0078' 2010               	addwfc	16,w,c
+    97  007A' 6E10               	movwf	16,c
+    98  007C' 5003               	movf	3,w,c
+    99  007E' 5E01               	subwf	1,f,c
+   100  0080' 5002               	movf	2,w,c
+   101  0082' 5A00               	subwfb	0,f,c
+   102  0084' D7EB               	goto	division
+   103  0086'                    DIV_DONE:
+   104  0086' C000 FFE8          	movff	0,wreg
+   105  008A' 6E12               	movwf	18,c
+   106  008C' C001 FFE8          	movff	1,wreg
+   107  0090' 6E13               	movwf	19,c
+   108  0092' 0012               	return	
+   109                           tosu	equ	0xFFF
+   110                           tosh	equ	0xFFE
+   111                           tosl	equ	0xFFD
+   112                           stkptr	equ	0xFFC
+   113                           pclatu	equ	0xFFB
+   114                           pclath	equ	0xFFA
+   115                           pcl	equ	0xFF9
+   116                           tblptru	equ	0xFF8
+   117                           tblptrh	equ	0xFF7
+   118                           tblptrl	equ	0xFF6
+   119                           tablat	equ	0xFF5
+   120                           prodh	equ	0xFF4
+   121                           prodl	equ	0xFF3
+   122                           indf0	equ	0xFEF
+   123                           postinc0	equ	0xFEE
+   124                           postdec0	equ	0xFED
+   125                           preinc0	equ	0xFEC
+   126                           plusw0	equ	0xFEB
+   127                           fsr0h	equ	0xFEA
+   128                           fsr0l	equ	0xFE9
+   129                           wreg	equ	0xFE8
+   130                           indf1	equ	0xFE7
+   131                           postinc1	equ	0xFE6
+   132                           postdec1	equ	0xFE5
+   133                           preinc1	equ	0xFE4
+   134                           plusw1	equ	0xFE3
+   135                           fsr1h	equ	0xFE2
+   136                           fsr1l	equ	0xFE1
+   137                           bsr	equ	0xFE0
+   138                           indf2	equ	0xFDF
+   139                           postinc2	equ	0xFDE
+   140                           postdec2	equ	0xFDD
+   141                           preinc2	equ	0xFDC
+   142                           plusw2	equ	0xFDB
+   143                           fsr2h	equ	0xFDA
+   144                           fsr2l	equ	0xFD9
+   145                           status	equ	0xFD8
+
+
+Microchip Technology PIC18 Macro Assembler V2.46 build 20240104201356 
+Symbol Table                                                                                               Wed Oct 15 10:19:56 2025
+
+                        LATD 0F8C                          WREG 0FE8                          TRUE 0052  
+                       CHECK 0040                         FALSE 0056                         DIV_2 0016  
+                       PRODH 0FF4                         PRODL 0FF3                       DIV_SUB 0070  
+                     isa$std 0001                      DIV_DONE 0086                      division 005C  
+                   DIV_PART2 001A                     TEST_DONE 0058                     _is_prime 0000  
+                   isa$xinst 0000  

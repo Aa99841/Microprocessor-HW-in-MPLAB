@@ -1,0 +1,7 @@
+Warning[205] C:\USERS\USER\MPLABXPROJECTS\2023MID.X\3A.ASM 1 : Found directive in column 1. (List)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2023MID.X\3A.ASM 7 : Found label after column 1. (MAIN)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2023MID.X\3A.ASM 19 : Found label after column 1. (PART1)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2023MID.X\3A.ASM 25 : Found label after column 1. (NOBORROW)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2023MID.X\3A.ASM 32 : Found label after column 1. (BORROW)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2023MID.X\3A.ASM 41 : Found label after column 1. (PART2)
+Warning[205] C:\USERS\USER\MPLABXPROJECTS\2023MID.X\3A.ASM 48 : Found directive in column 1. (END)

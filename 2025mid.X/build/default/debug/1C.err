@@ -1,0 +1,7 @@
+Warning[205] C:\USERS\USER\MPLABXPROJECTS\2025MID.X\1C.ASM 1 : Found directive in column 1. (List)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2025MID.X\1C.ASM 7 : Found label after column 1. (MAIN)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2025MID.X\1C.ASM 38 : Found label after column 1. (ADDER1)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2025MID.X\1C.ASM 60 : Found label after column 1. (ADDER2)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2025MID.X\1C.ASM 92 : Found label after column 1. (UPDATE)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2025MID.X\1C.ASM 106 : Found label after column 1. (FINDPAIR)
+Warning[205] C:\USERS\USER\MPLABXPROJECTS\2025MID.X\1C.ASM 112 : Found directive in column 1. (END)

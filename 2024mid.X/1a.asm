@@ -1,0 +1,66 @@
+List p=18f4520
+    #include<p18f4520.inc>
+    CONFIG OSC = INTIO67
+    CONFIG WDT = OFF
+    org 0x00
+    
+    ;create a subroutine
+    ;	[0x020][0x021] = [0x000][0x001] / [0x003]
+    ;   [0x022] = [0x000][0x001] % [0x003]
+    main:
+	MOVLW 0X40
+	MOVWF 0X00
+	MOVLW 0X06
+	MOVWF 0X01
+	
+	CLRF 0x02
+	MOVLW 0X03
+	MOVWF 0X03
+	RCALL division
+	NOP
+	GOTO LAST
+    
+    division:
+	MOVF 0X00, W  ;WREG = [0x000]
+	SUBWF 0X02,W  ;WREG = WREG - [0x002]
+	BNC DIV_SUB    ; [0x002] < [0x000]
+	
+	MOVF 0X00, W
+	CPFSEQ 0X02
+	    GOTO DIV_DONE
+	GOTO COMPARE2
+	
+    COMPARE2:
+	MOVF 0X03, W  ;WREG = [0X003]
+	SUBWF 0X01,W  ;WREG = WREG - [0X001]
+	BC DIV_SUB     ;[0X001] >= [0X003]
+	GOTO DIV_DONE
+	
+    DIV_SUB:
+	MOVLW 0X01
+	ADDWF 0X21,W
+	MOVWF 0X21
+	
+	MOVLW 0X00
+	ADDWFC 0X20,W
+	MOVWF 0X20
+	
+	MOVF    0X03, W
+	SUBWF   0X01, F
+	MOVF    0X02, W
+	SUBWFB  0X00, F
+	
+	GOTO division
+	
+    DIV_DONE:
+
+	MOVFF 0X01,WREG
+	MOVWF 0X22
+	RETURN
+	
+	
+    LAST:
+	NOP
+
+
+END

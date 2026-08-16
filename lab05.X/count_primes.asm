@@ -1,0 +1,439 @@
+#include <xc.inc>
+    
+GLOBAL _count_primes
+    
+PSECT mytext, local, class=CODE, reloc=2
+
+
+_count_primes:
+    BCF WDTCON, 0
+    MOVFF 0X02, TRISA ;sH
+    MOVFF 0X01, TRISB ;sL
+    MOVFF 0X04, 0X50 ;bH
+    MOVFF 0X03, 0X51 ;bL
+
+COUNT_LOOP:
+   
+    MOVFF TRISA, LATA
+    MOVFF TRISB, LATB
+    
+    ; check it is prime or not( yes = 1, no = 0)
+    CLRF 0X40
+    CLRF 0X41
+    RCALL is_prime
+    
+    ;add the result of is_prime to answer
+    MOVFF 0X41, WREG
+    ADDWF LATD,W
+    MOVWF LATD
+	
+    MOVFF 0X40, WREG
+    ADDWFC LATC,W
+    MOVWF LATC ;ANSWER
+    
+    ;loop count ++
+    MOVLW 0X01
+    ADDWF TRISB,W
+    MOVWF TRISB
+	
+    MOVLW 0X00
+    ADDWFC TRISA,W
+    MOVWF TRISA ;LOOP COUNT
+    
+    ; compare it to check it should be end or not
+    ; check [TRISA][TRISB] == 0 is to check it is 65535 or not
+    
+    MOVLW 0X00
+    CPFSEQ TRISA
+	GOTO COUNT_COMPARE2
+
+    CPFSEQ TRISB
+	GOTO COUNT_COMPARE2
+	
+    GOTO COUNT_DONE
+
+    
+;COUNT_COMPARE1:
+;    MOVFF TRISC, WREG
+;    ; if (TRISA > TRISC) goto COUNT_DONE
+;    CPFSGT TRISA
+;	GOTO COUNT_COMPARE2
+;    GOTO COUNT_DONE
+    
+COUNT_COMPARE2:
+    MOVFF 0X50,WREG
+     ; if (TRISA != 0x50) goto COUNT_LOOP
+    CPFSEQ TRISA
+	GOTO COUNT_LOOP
+    
+    ; if(TRISB > 0x51) goto COUNT_DONE
+    MOVFF 0X51, WREG
+    CPFSGT TRISB
+	GOTO COUNT_LOOP
+    GOTO COUNT_DONE
+    
+COUNT_DONE:
+    MOVFF LATC, 0X02
+    MOVFF LATD, 0X01
+    CLRF WREG
+    RETURN
+
+    
+is_prime:
+    CLRF 0X20
+    CLRF 0X21
+    
+    MOVLW 0XFF
+    MOVWF 0X20
+    MOVLW 0XFF
+    MOVWF 0X21 ;LOOP COUNT
+    
+    
+    MOVLW 0X00 ; N <= 256 ?
+    CPFSEQ LATA
+    GOTO DIV_2
+    
+    MOVLW 0X01
+    CPFSGT LATB ;IF(N <= 1) FALSE 
+    GOTO FALSE
+    
+    MOVLW 0X02
+    CPFSEQ LATB ;IF(N = 2) TRUE
+    GOTO C3
+    GOTO TRUE
+    
+C3:
+    MOVLW 0X03
+    CPFSEQ LATB ;IF(N = 3) TRUE
+    GOTO DIV_2
+    GOTO TRUE
+    
+DIV_2:
+    BTFSC LATB,0 
+    GOTO DIV_3
+    MOVLW 0XFF ;IF(N % 2 == 0) FALSE
+    GOTO FALSE
+    
+DIV_3:
+    MOVFF LATA, 0X00
+    MOVFF LATB, 0X01
+    MOVLW 0X03
+    MOVWF 0X03
+    MOVLW 0X00
+    MOVLW 0X02
+
+    RCALL division
+    MOVLW 0X00
+    CPFSEQ 0X013
+    GOTO DIV_PART2
+    GOTO FALSE
+    
+DIV_PART2:
+    
+    MOVLW 0X06
+    ADDWF 0X21,W
+    MOVWF 0X21
+	
+    MOVLW 0X00
+    ADDWFC 0X20,W
+    MOVWF 0X20 ;LOOP COUNT
+    
+    MOVLW 0X00
+    CPFSEQ 0X20
+    GOTO TRUE
+    MOVFF 0X21, 0X30
+    MOVFF 0X21,WREG
+    MULWF 0X30 ;LOOP COUNT^2
+    MOVFF PRODH, 0X30
+    MOVFF PRODL, 0X31
+    
+COMPARE1:
+    MOVFF 0X30, WREG
+    CPFSGT LATA 
+    GOTO PRIME_COMPARE2
+    GOTO CHECK
+
+PRIME_COMPARE2:
+    MOVFF 0X30,WREG
+    CPFSEQ LATA
+    GOTO TRUE
+    
+    MOVFF 0X31, WREG
+    CPFSLT LATB 
+    GOTO CHECK
+    GOTO TRUE
+    
+    
+CHECK:
+    MOVFF LATA, 0X00
+    MOVFF LATB, 0X01
+    MOVFF 0X21, 0X03
+    MOVFF 0X20, 0X02
+
+    RCALL division
+    MOVLW 0X00
+    CPFSEQ 0X013
+    GOTO CHECK2
+    GOTO FALSE
+    
+CHECK2:
+    MOVFF LATA, 0X00
+    MOVFF LATB, 0X01
+    MOVFF 0X21, 0X03
+    MOVFF 0X20, 0X02
+    
+    MOVLW 0X02
+    ADDWF 0X03
+    
+    MOVLW 0X00
+    ADDWFC 0X02
+
+    RCALL division
+    MOVLW 0X00
+    CPFSEQ 0X013
+    GOTO DIV_PART2
+    GOTO FALSE
+    
+TRUE:
+    MOVLW 0X01
+    MOVWF 0X41
+    GOTO TEST_DONE
+    
+FALSE:
+    MOVLW 0X00
+    MOVWF 0X40
+    MOVWF 0X41
+    GOTO TEST_DONE
+    
+TEST_DONE:
+    NOP
+    RETURN
+
+    
+ 
+division:
+    CLRF 0X12
+    CLRF 0X13
+    
+DIV_LOOP:
+    MOVF 0X00, W  ;WREG = A
+    SUBWF 0X02,W  ;WREG = WREG - B
+    BNC DIV_SUB    ; B < A
+	
+    MOVF 0X00, W
+    CPFSEQ 0X02
+    GOTO DIV_DONE
+    GOTO COMPARE2
+	
+COMPARE2:
+    MOVF 0X03, W  ;WREG = D
+    SUBWF 0X01,W  ;WREG = WREG - C
+    BC DIV_SUB     ;C >= D
+    GOTO DIV_DONE
+	
+DIV_SUB:	
+    MOVF    0X03, W
+    SUBWF   0X01, F
+    MOVF    0X02, W
+    SUBWFB  0X00, F
+    
+    GOTO DIV_LOOP
+    
+DIV_DONE:
+    MOVFF 0X00,WREG
+    MOVWF 0X12
+    MOVFF 0X01,WREG
+    MOVWF 0X13
+    RETURN
+ 
+   
+    
+; didn't deal with 3 ???
+;#include <xc.inc>
+;    
+;GLOBAL _count_primes
+;    
+;PSECT mytext, local, class=CODE, reloc=2
+;
+;
+;_count_primes:
+;    BCF WDTCON, 0
+;    MOVFF 0X02, TRISA ;sH
+;    MOVFF 0X01, TRISB ;sL
+;    MOVFF 0X04, 0X50 ;bH
+;    MOVFF 0X03, 0X51 ;bL
+;
+;COUNT_LOOP:
+;   
+;    MOVFF TRISA, LATA
+;    MOVFF TRISB, LATB
+;    CLRF 0X40
+;    CLRF 0X41
+;    RCALL is_prime
+;    
+;    MOVFF 0X41, WREG
+;    ADDWF LATD,W
+;    MOVWF LATD
+;	
+;    MOVFF 0X40, WREG
+;    ADDWFC LATC,W
+;    MOVWF LATC ;ANSWER
+;    
+;    
+;    MOVLW 0X01
+;    ADDWF TRISB,W
+;    MOVWF TRISB
+;	
+;    MOVLW 0X00
+;    ADDWFC TRISA,W
+;    MOVWF TRISA ;LOOP COUNT
+;    
+;    MOVFF TRISC, WREG
+;    CPFSGT TRISA
+;    GOTO COUNT_COMPARE
+;    GOTO COUNT_DONE
+;    
+;COUNT_COMPARE:
+;    MOVFF 0X50,WREG
+;    CPFSEQ TRISA
+;    GOTO COUNT_LOOP
+;    
+;    MOVFF 0X51, WREG
+;    CPFSGT TRISB
+;    GOTO COUNT_LOOP
+;    GOTO COUNT_DONE
+;    
+;COUNT_DONE:
+;    MOVFF LATC, 0X02
+;    MOVFF LATD, 0X01
+;    CLRF WREG
+;    RETURN
+;
+;is_prime:
+;    
+;    MOVLW 0X01
+;    MOVWF 0X21 ;LOOP COUNT
+;    
+;    MOVLW 0X00 ; N <= 256 ?
+;    CPFSEQ LATA
+;    GOTO DIV_2
+;    
+;    MOVLW 0X01
+;    CPFSGT LATB ;IF(N <= 1) FALSE 
+;    GOTO FALSE
+;    
+;    MOVLW 0X02
+;    CPFSEQ LATB ;IF(N = 2) TRUE
+;    GOTO DIV_2
+;    GOTO TRUE
+;    
+;DIV_2:
+;    BTFSC LATB,0 
+;    GOTO DIV_PART2
+;    MOVLW 0XFF ;IF(N % 2 == 0) FALSE
+;    GOTO TEST_DONE
+;    
+;DIV_PART2:
+;    MOVLW 0X02
+;    ADDWF 0X21,W
+;    MOVWF 0X21
+;	
+;    MOVLW 0X00
+;    ADDWFC 0X20,W
+;    MOVWF 0X20 ;LOOP COUNT
+;    
+;    MOVLW 0X00
+;    CPFSEQ 0X20
+;    GOTO FALSE
+;    MOVFF 0X21, 0X30
+;    MOVFF 0X21,WREG
+;    MULWF 0X30 ;LOOP COUNT^2
+;    MOVFF PRODH, 0X30
+;    MOVFF PRODL, 0X31
+;    
+;COMPARE1:
+;    MOVFF 0X30, WREG
+;    CPFSGT LATA 
+;    GOTO PRIME_COMPARE2
+;    GOTO CHECK
+;
+;PRIME_COMPARE2:
+;    MOVFF 0X30,WREG
+;    CPFSEQ LATA
+;    GOTO TRUE
+;    
+;    MOVFF 0X31, WREG
+;    CPFSLT LATB 
+;    GOTO CHECK
+;    GOTO TRUE
+;    
+;    
+;CHECK:
+;    MOVFF LATA, 0X00
+;    MOVFF LATB, 0X01
+;    MOVFF 0X21, 0X03
+;    CLRF 0X10
+;    CLRF 0X11
+;    CLRF 0X12
+;    CLRF 0X13
+;    RCALL division
+;    MOVLW 0X00
+;    CPFSEQ 0X013
+;    GOTO DIV_PART2
+;    MOVLW 0XFF
+;    GOTO TEST_DONE
+;    
+;TRUE:
+;    MOVLW 0X01
+;    MOVWF 0X41
+;    GOTO TEST_DONE
+;    
+;FALSE:
+;    MOVLW 0X00
+;    MOVWF 0X40
+;    MOVWF 0X41
+;    GOTO TEST_DONE
+;    
+;TEST_DONE:
+;    NOP
+;    RETURN
+;    
+;division:
+;	
+;	MOVF 0X00, W  ;WREG = A
+;	SUBWF 0X02,W  ;WREG = WREG - B
+;	BNC DIV_SUB    ;B < A
+;	MOVF 0X00, W
+;	CPFSEQ 0X02
+;	GOTO DIV_DONE
+;	GOTO COMPARE2
+;	
+;    COMPARE2:
+;	MOVF 0X03, W  ;WREG = D
+;	SUBWF 0X01,W  ;WREG = WREG - C
+;	BC DIV_SUB     ;C >= D
+;	GOTO DIV_DONE
+;	
+;    DIV_SUB:
+;	MOVLW 0X01
+;	ADDWF 0X11,W
+;	MOVWF 0X11
+;	
+;	MOVLW 0X00
+;	ADDWFC 0X10,W
+;	MOVWF 0X10
+;	
+;	MOVF    0X03, W
+;	SUBWF   0X01, F
+;	MOVF    0X02, W
+;	SUBWFB  0X00, F
+;	
+;	GOTO division
+;	
+;    DIV_DONE:
+;	MOVFF 0X00,WREG
+;	MOVWF 0X12
+;	MOVFF 0X01,WREG
+;	MOVWF 0X13
+;	RETURN
+;    

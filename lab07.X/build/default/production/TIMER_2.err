@@ -1,0 +1,11 @@
+Warning[205] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\TIMER_2.ASM 62 : Found directive in column 1. (org)
+Warning[203] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\TIMER_2.ASM 64 : Found opcode in column 1. (goto)
+Warning[205] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\TIMER_2.ASM 67 : Found directive in column 1. (org)
+Warning[205] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\TIMER_2.ASM 79 : Found directive in column 1. (org)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\TIMER_2.ASM 85 : Found label after column 1. (SUB15)
+Warning[202] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\TIMER_2.ASM 86 : Argument out of range.  Least significant bits used.
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\TIMER_2.ASM 96 : Found label after column 1. (ADD0)
+Warning[202] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\TIMER_2.ASM 97 : Argument out of range.  Least significant bits used.
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\TIMER_2.ASM 107 : Found label after column 1. (BACK)
+Warning[202] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\TIMER_2.ASM 116 : Argument out of range.  Least significant bits used.
+Warning[205] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\TIMER_2.ASM 178 : Found directive in column 1. (END)

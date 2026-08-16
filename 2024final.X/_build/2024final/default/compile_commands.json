@@ -1,0 +1,38 @@
+[
+{
+  "directory": "C:/Users/User/MPLABXProjects/2024final.X/_build/2024final/default",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc8\\v3.00\\bin\\xc8-cc.exe -DXPRJ_default=default -D__18F4520__ -D__DEBUG=1 -D__MPLAB_DEBUGGER_PK4=1 -IC:\\Users\\User\\MPLABXProjects\\2024final.X\\cmake\\2024final\\default\\..\\..\\.. -c -mcpu=18F4520 -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -mwarn=-3 -Wa,-a -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto -o CMakeFiles\\A_2024final_default_default_XC8_compile.dir\\C_\\Users\\User\\MPLABXProjects\\2024final.X\\main.c.p1 -c C:\\Users\\User\\MPLABXProjects\\2024final.X\\main.c",
+  "file": "C:/Users/User/MPLABXProjects/2024final.X/main.c",
+  "output": "C:/Users/User/MPLABXProjects/2024final.X/_build/2024final/default/CMakeFiles/A_2024final_default_default_XC8_compile.dir/C_/Users/User/MPLABXProjects/2024final.X/main.c.p1"
+},
+{
+  "directory": "C:/Users/User/MPLABXProjects/2024final.X/_build/2024final/default",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc8\\v3.00\\bin\\xc8-cc.exe -DXPRJ_default=default -D__18F4520__ -D__DEBUG=1 -D__MPLAB_DEBUGGER_PK4=1 -IC:\\Users\\User\\MPLABXProjects\\2024final.X\\cmake\\2024final\\default\\..\\..\\.. -c -mcpu=18F4520 -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -mwarn=-3 -Wa,-a -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto -o CMakeFiles\\A_2024final_default_default_XC8_compile.dir\\C_\\Users\\User\\MPLABXProjects\\2024final.X\\setting_hardaware\\adc.c.p1 -c C:\\Users\\User\\MPLABXProjects\\2024final.X\\setting_hardaware\\adc.c",
+  "file": "C:/Users/User/MPLABXProjects/2024final.X/setting_hardaware/adc.c",
+  "output": "C:/Users/User/MPLABXProjects/2024final.X/_build/2024final/default/CMakeFiles/A_2024final_default_default_XC8_compile.dir/C_/Users/User/MPLABXProjects/2024final.X/setting_hardaware/adc.c.p1"
+},
+{
+  "directory": "C:/Users/User/MPLABXProjects/2024final.X/_build/2024final/default",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc8\\v3.00\\bin\\xc8-cc.exe -DXPRJ_default=default -D__18F4520__ -D__DEBUG=1 -D__MPLAB_DEBUGGER_PK4=1 -IC:\\Users\\User\\MPLABXProjects\\2024final.X\\cmake\\2024final\\default\\..\\..\\.. -c -mcpu=18F4520 -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -mwarn=-3 -Wa,-a -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto -o CMakeFiles\\A_2024final_default_default_XC8_compile.dir\\C_\\Users\\User\\MPLABXProjects\\2024final.X\\setting_hardaware\\ccp1.c.p1 -c C:\\Users\\User\\MPLABXProjects\\2024final.X\\setting_hardaware\\ccp1.c",
+  "file": "C:/Users/User/MPLABXProjects/2024final.X/setting_hardaware/ccp1.c",
+  "output": "C:/Users/User/MPLABXProjects/2024final.X/_build/2024final/default/CMakeFiles/A_2024final_default_default_XC8_compile.dir/C_/Users/User/MPLABXProjects/2024final.X/setting_hardaware/ccp1.c.p1"
+},
+{
+  "directory": "C:/Users/User/MPLABXProjects/2024final.X/_build/2024final/default",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc8\\v3.00\\bin\\xc8-cc.exe -DXPRJ_default=default -D__18F4520__ -D__DEBUG=1 -D__MPLAB_DEBUGGER_PK4=1 -IC:\\Users\\User\\MPLABXProjects\\2024final.X\\cmake\\2024final\\default\\..\\..\\.. -c -mcpu=18F4520 -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -mwarn=-3 -Wa,-a -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto -o CMakeFiles\\A_2024final_default_default_XC8_compile.dir\\C_\\Users\\User\\MPLABXProjects\\2024final.X\\setting_hardaware\\interrupt_manager.c.p1 -c C:\\Users\\User\\MPLABXProjects\\2024final.X\\setting_hardaware\\interrupt_manager.c",
+  "file": "C:/Users/User/MPLABXProjects/2024final.X/setting_hardaware/interrupt_manager.c",
+  "output": "C:/Users/User/MPLABXProjects/2024final.X/_build/2024final/default/CMakeFiles/A_2024final_default_default_XC8_compile.dir/C_/Users/User/MPLABXProjects/2024final.X/setting_hardaware/interrupt_manager.c.p1"
+},
+{
+  "directory": "C:/Users/User/MPLABXProjects/2024final.X/_build/2024final/default",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc8\\v3.00\\bin\\xc8-cc.exe -DXPRJ_default=default -D__18F4520__ -D__DEBUG=1 -D__MPLAB_DEBUGGER_PK4=1 -IC:\\Users\\User\\MPLABXProjects\\2024final.X\\cmake\\2024final\\default\\..\\..\\.. -c -mcpu=18F4520 -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -mwarn=-3 -Wa,-a -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto -o CMakeFiles\\A_2024final_default_default_XC8_compile.dir\\C_\\Users\\User\\MPLABXProjects\\2024final.X\\setting_hardaware\\setting.c.p1 -c C:\\Users\\User\\MPLABXProjects\\2024final.X\\setting_hardaware\\setting.c",
+  "file": "C:/Users/User/MPLABXProjects/2024final.X/setting_hardaware/setting.c",
+  "output": "C:/Users/User/MPLABXProjects/2024final.X/_build/2024final/default/CMakeFiles/A_2024final_default_default_XC8_compile.dir/C_/Users/User/MPLABXProjects/2024final.X/setting_hardaware/setting.c.p1"
+},
+{
+  "directory": "C:/Users/User/MPLABXProjects/2024final.X/_build/2024final/default",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc8\\v3.00\\bin\\xc8-cc.exe -DXPRJ_default=default -D__18F4520__ -D__DEBUG=1 -D__MPLAB_DEBUGGER_PK4=1 -IC:\\Users\\User\\MPLABXProjects\\2024final.X\\cmake\\2024final\\default\\..\\..\\.. -c -mcpu=18F4520 -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -mwarn=-3 -Wa,-a -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto -o CMakeFiles\\A_2024final_default_default_XC8_compile.dir\\C_\\Users\\User\\MPLABXProjects\\2024final.X\\setting_hardaware\\uart.c.p1 -c C:\\Users\\User\\MPLABXProjects\\2024final.X\\setting_hardaware\\uart.c",
+  "file": "C:/Users/User/MPLABXProjects/2024final.X/setting_hardaware/uart.c",
+  "output": "C:/Users/User/MPLABXProjects/2024final.X/_build/2024final/default/CMakeFiles/A_2024final_default_default_XC8_compile.dir/C_/Users/User/MPLABXProjects/2024final.X/setting_hardaware/uart.c.p1"
+}
+]

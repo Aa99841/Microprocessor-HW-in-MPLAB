@@ -1,0 +1,4 @@
+C:/Users/User/MPLABXProjects/2024final.X/_build/2024final/default/CMakeFiles/A_2024final_default_default_XC8_compile.dir
+C:/Users/User/MPLABXProjects/2024final.X/_build/2024final/default/CMakeFiles/2024final_default_image_EC_cUyq9.dir
+C:/Users/User/MPLABXProjects/2024final.X/_build/2024final/default/CMakeFiles/edit_cache.dir
+C:/Users/User/MPLABXProjects/2024final.X/_build/2024final/default/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,137 @@
+#include <xc.inc>
+    
+GLOBAL _mul_extended
+    
+PSECT mytext, local, class=CODE, reloc=2
+
+_mul_extended:
+    MOVFF 0X02, LATA ;Nh
+    MOVFF 0X01, LATB ;Nl
+    MOVFF 0X04, LATC ;Mh
+    MOVFF 0X03, LATD ;Ml
+    
+    ; NEGATIVE OR POSITIVE
+    MOVLW 0X01
+    BTFSC LATA, 7
+    MOVLW 0XFF
+    MOVWF 0X20
+
+    BTFSS LATC,7
+    GOTO MUL_E
+    MOVLW 0X01
+    CPFSGT 0X20
+    MOVLW 0XFF 
+    MOVWF 0X20
+    
+    ;NEGAT
+    BTFSC LATA,7
+    RCALL NEGAT1 
+    BTFSC LATC,7
+    RCALL NEGAT2
+    GOTO MUL_E
+    
+NEGAT1:
+    MOVLW 0XFF
+    XORWF LATA,1
+    XORWF LATB,1
+    
+    MOVLW 0X01
+    ADDWF LATB,W
+    MOVWF LATB
+    
+    MOVLW 0X00
+    ADDWFC LATA,W
+    MOVWF LATA
+    RETURN
+    
+NEGAT2:
+    MOVLW 0XFF
+    XORWF LATC,1
+    XORWF LATD,1
+    
+    MOVLW 0X01
+    ADDWF LATD,W
+    MOVWF LATD
+    
+    MOVLW 0X00
+    ADDWFC LATC,W
+    MOVWF LATC
+    RETURN
+   
+MUL_E:
+    MOVFF LATD, WREG
+    MULWF LATB
+    MOVFF PRODH, 0X10
+    MOVFF PRODL, 0X11
+    
+    MOVFF LATD, WREG
+    MULWF LATA
+    MOVFF PRODH, 0X12
+    MOVFF PRODL, 0X13
+    
+    MOVFF LATC, WREG
+    MULWF LATB
+    MOVFF PRODH, 0X14
+    MOVFF PRODL, 0X15
+    
+    MOVFF LATC, WREG
+    MULWF LATA
+    MOVFF PRODH, 0X16
+    MOVFF PRODL, 0X17
+    
+    ;0X01
+    MOVFF 0X11, 0X01
+    
+    ;0X02
+    MOVFF 0X10, WREG
+    ADDWF 0X13,W
+    MOVWF 0X02
+    
+    MOVFF 0X15,WREG
+    ADDWFC 0X02,W
+    MOVWF 0X02
+    
+    ;0X03
+    MOVFF 0X12, WREG
+    ADDWFC 0X14,W
+    MOVWF 0X03
+    
+    MOVFF 0X17,WREG
+    ADDWFC 0X03,W
+    MOVWF 0X03
+    
+    ;0X04
+    MOVLW 0X00
+    ADDWFC 0X16,W
+    MOVWF 0X04
+    
+    MOVLW 0X01
+    CPFSEQ 0X20
+    RCALL NEGAT_A
+    
+    RETURN
+    
+NEGAT_A:
+    MOVLW 0XFF
+    XORWF 0X01,1
+    XORWF 0X02,1
+    XORWF 0X03,1
+    XORWF 0X04,1
+    
+    MOVLW 0X01
+    ADDWF 0X01,W
+    MOVWF 0X01
+    
+    MOVLW 0X00
+    ADDWFC 0X02,W
+    MOVWF 0X02
+    
+    MOVLW 0X00
+    ADDWFC 0X03,W
+    MOVWF 0X03
+    
+    MOVLW 0X00
+    ADDWFC 0X04,W
+    MOVWF 0X04
+    
+    RETURN

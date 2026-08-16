@@ -1,0 +1,129 @@
+Disassembly Listing for lab06
+Generated From:
+C:/Users/User/MPLABXProjects/lab06.X/dist/default/debug/lab06.X.debug.cof
+2025/10/27 ?? 10:18:48
+
+---  C:/Users/User/MPLABXProjects/lab06.X/basic.asm  ----------------------------------------------------
+                                                  1:     LIST p=18f4520
+                                                  2:         #include<p18f4520.inc>
+                                                  3:     	CONFIG OSC = INTIO67 ; 1 MHZ
+                                                  4:     	CONFIG WDT = OFF
+                                                  5:     	CONFIG LVP = OFF
+                                                  6:     	
+                                                  7:     	L1	EQU 0x14
+                                                  8:     	L2	EQU 0x15
+                                                  9:     	org 0x00
+                                                  10:    	
+                                                  11:    ; Total 2 + (2 + 7 * num1 + 2) * num2 cycles = C
+                                                  12:    ; num1 = 200, num2 = 180, C = 252360
+                                                  13:    ; Total delay ~= C/1M = 0.25s
+                                                  14:    DELAY macro num1, num2 
+                                                  15:        local LOOP1 
+                                                  16:        local LOOP2
+                                                  17:        
+                                                  18:        MOVLW num2
+                                                  19:        MOVWF L2
+                                                  20:        
+                                                  21:        LOOP2:
+                                                  22:    	MOVLW num1
+                                                  23:    	MOVWF L1
+                                                  24:    	
+                                                  25:        LOOP1:
+                                                  26:    	NOP
+                                                  27:    	NOP
+                                                  28:    	NOP
+                                                  29:    	NOP
+                                                  30:    	NOP
+                                                  31:    	NOP
+                                                  32:    	
+                                                  33:    	DECFSZ L1, 1
+                                                  34:    	BRA LOOP1
+                                                  35:    	
+                                                  36:    	DECFSZ L2, 1
+                                                  37:    	BRA LOOP2
+                                                  38:    endm
+                                                  39:    
+                                                  40:    	
+                                                  41:    start:
+                                                  42:    int:
+                                                  43:    ; let pin can receive digital signal 
+0000  0E0F     MOVLW 0xF                          44:    MOVLW 0x0f
+0002  6EC1     MOVWF ADCON1, ACCESS               45:    MOVWF ADCON1
+0004  6A81     CLRF PORTB, ACCESS                 46:    CLRF PORTB
+0006  8093     BSF TRISB, 0, ACCESS               47:    BSF TRISB, 0
+0008  6A89     CLRF LATA, ACCESS                  48:    CLRF LATA
+000A  9092     BCF TRISA, 0, ACCESS               49:    BCF TRISA, 0
+                                                  50:        
+000C  0E00     MOVLW 0x0                          51:    MOVLW 0X00
+000E  6E00     MOVWF 0x0, ACCESS                  52:    MOVWF 0X00
+                                                  53:        
+                                                  54:    ; ckeck button
+                                                  55:    check_process:
+0010  B081     BTFSC PORTB, 0, ACCESS             56:       BTFSC PORTB, 0
+0012  D7FE     BRA 0x10                           57:       BRA check_process
+0014  D000     BRA 0x16                           58:       BRA check_status
+                                                  59:       
+                                                  60:       
+                                                  61:    check_status:
+0016  5000     MOVF 0x0, W, ACCESS                62:        MOVF 0X00,W
+0018  E009     BZ 0x2C                            63:        BZ lightup1
+                                                  64:        
+001A  5000     MOVF 0x0, W, ACCESS                65:        MOVF 0X00,W
+001C  0801     SUBLW 0x1                          66:        SUBLW 0X01
+001E  E00C     BZ 0x38                            67:        BZ lightup2
+                                                  68:        
+0020  5000     MOVF 0x0, W, ACCESS                69:        MOVF 0X00,W
+0022  0802     SUBLW 0x2                          70:        SUBLW 0X02
+0024  E00F     BZ 0x44                            71:        BZ lightup3
+                                                  72:        
+0026  5000     MOVF 0x0, W, ACCESS                73:        MOVF 0X00,W
+0028  0803     SUBLW 0x3                          74:        SUBLW 0X03
+002A  E012     BZ 0x50                            75:        BZ turnoff
+                                                  76:    ;    BTFSC LATA, 0  ;IF == 0 ,THEN LED IS CLOSE
+                                                  77:        
+                                                  78:        
+                                                  79:    lightup1:
+002C  8089     BSF LATA, 0, ACCESS                80:        BSF LATA, 0
+002E  9289     BCF LATA, 1, ACCESS                81:        BCF LATA, 1
+0030  9489     BCF LATA, 2, ACCESS                82:        BCF LATA, 2
+                                                  83:        DELAY d'111', d'70' ;delay 0.25s
+0032  0E01     MOVLW 0x1                          84:        MOVLW 0X01
+0034  6E00     MOVWF 0x0, ACCESS                  85:        MOVWF 0X00
+0036  D7EC     BRA 0x10                           86:        BRA check_process
+                                                  87:        
+                                                  88:    lightup2:
+0038  9089     BCF LATA, 0, ACCESS                89:        BCF LATA, 0
+003A  8289     BSF LATA, 1, ACCESS                90:        BSF LATA, 1
+003C  9489     BCF LATA, 2, ACCESS                91:        BCF LATA, 2
+                                                  92:        DELAY d'111', d'70' ;delay 0.25s
+003E  0E02     MOVLW 0x2                          93:        MOVLW 0X02
+0040  6E00     MOVWF 0x0, ACCESS                  94:        MOVWF 0X00
+0042  D7E6     BRA 0x10                           95:        BRA check_process
+                                                  96:        
+                                                  97:    lightup3:
+0044  9089     BCF LATA, 0, ACCESS                98:        BCF LATA, 0
+0046  9289     BCF LATA, 1, ACCESS                99:        BCF LATA, 1
+0048  8489     BSF LATA, 2, ACCESS                100:       BSF LATA, 2
+                                                  101:       DELAY d'111', d'70' ;delay 0.25s
+004A  0E03     MOVLW 0x3                          102:       MOVLW 0X03
+004C  6E00     MOVWF 0x0, ACCESS                  103:       MOVWF 0X00
+004E  D7E0     BRA 0x10                           104:       BRA check_process
+                                                  105:       
+                                                  106:   turnoff:
+0050  9089     BCF LATA, 0, ACCESS                107:       BCF LATA, 0
+0052  9289     BCF LATA, 1, ACCESS                108:       BCF LATA, 1
+0054  9489     BCF LATA, 2, ACCESS                109:       BCF LATA, 2
+                                                  110:       DELAY d'111', d'70' ;delay 0.25s
+0056  0E00     MOVLW 0x0                          111:       MOVLW 0X00
+0058  6E00     MOVWF 0x0, ACCESS                  112:       MOVWF 0X00
+005A  D7DA     BRA 0x10                           113:       BRA check_process
+                                                  114:       
+                                                  115:       
+                                                  116:   end
+                                                  117:       
+                                                  118:   	    
+                                                  119:   
+                                                  120:       
+                                                  121:   
+                                                  122:   
+                                                  123:   

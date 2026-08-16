@@ -1,0 +1,5 @@
+Warning[205] C:\USERS\USER\MPLABXPROJECTS\LAB02.X\ADVANCE.ASM 1 : Found directive in column 1. (List)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB02.X\ADVANCE.ASM 40 : Found label after column 1. (LOOP)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB02.X\ADVANCE.ASM 50 : Found label after column 1. (AFIRST)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB02.X\ADVANCE.ASM 55 : Found label after column 1. (BFIRST)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB02.X\ADVANCE.ASM 60 : Found label after column 1. (LAST)

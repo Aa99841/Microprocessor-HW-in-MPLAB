@@ -1,0 +1,116 @@
+#include <xc.inc>
+    
+GLOBAL _is_prime
+    
+PSECT mytext, local, class=CODE, reloc=2
+    
+_is_prime:
+    MOVFF WREG, LATD ; input
+    
+    MOVLW 0X01
+    MOVWF 0X20 ;LOOP COUNT
+    
+    MOVLW 0X01
+    CPFSGT LATD ;IF(N <= 1) FALSE 
+	GOTO FALSE
+	
+    MOVLW 0X02
+    CPFSEQ LATD ;IF(N = 2) TRUE
+	GOTO DIV_2
+    GOTO TRUE
+    
+DIV_2:
+    BTFSC LATD,0  ;IF(N % 2 == 0) FALSE
+	GOTO DIV_PART2
+	
+    ;false
+    MOVLW 0XFF 
+    GOTO TEST_DONE
+    
+DIV_PART2:
+    INCF 0X20 ;LOOP COUNT
+    INCF 0X20
+    
+    MOVFF 0X20, 0X30
+    MOVFF 0X20,WREG
+
+    MULWF 0X30 ;LOOP COUNT^2
+    MOVFF PRODH, 0X30
+    MOVFF PRODL, 0X31
+    
+    ; if([0x030] != 0) goto true  // loop count end
+    MOVLW 0X00
+    CPFSEQ 0X30
+	GOTO TRUE
+
+    ; IF(LOOP COUNT^2 > N)  TRUE
+    MOVFF LATD,WREG
+    CPFSGT 0X31
+	GOTO CHECK 
+    GOTO TRUE
+    
+CHECK:
+    MOVFF LATD, 0X01 ; input
+    MOVFF 0X20, 0X03 ; loop count
+    
+    RCALL division
+    
+    ; check [0x013] == 0 ?
+    MOVLW 0X00
+    CPFSEQ 0X013
+	GOTO DIV_PART2
+	
+    MOVLW 0XFF
+    GOTO TEST_DONE
+    
+TRUE:
+    MOVLW 0X01
+    GOTO TEST_DONE
+    
+FALSE:
+    MOVLW 0XFF
+    GOTO TEST_DONE
+    
+TEST_DONE:
+    MOVWF 0X01
+    RETURN
+    
+    
+    
+division:
+	MOVF 0X00, W  ;WREG = A
+	SUBWF 0X02,W  ;WREG = WREG - B
+	BNC DIV_SUB    ;B < A
+	MOVF 0X00, W
+	CPFSEQ 0X02
+	GOTO DIV_DONE
+	GOTO COMPARE2
+	
+    COMPARE2:
+	MOVF 0X03, W  ;WREG = D
+	SUBWF 0X01,W  ;WREG = WREG - C
+	BC DIV_SUB     ;C >= D
+	GOTO DIV_DONE
+	
+    DIV_SUB:
+	MOVLW 0X01
+	ADDWF 0X11,W
+	MOVWF 0X11
+	
+	MOVLW 0X00
+	ADDWFC 0X10,W
+	MOVWF 0X10
+	
+	MOVF    0X03, W
+	SUBWF   0X01, F
+	MOVF    0X02, W
+	SUBWFB  0X00, F
+	
+	GOTO division
+	
+    DIV_DONE:
+	MOVFF 0X00,WREG
+	MOVWF 0X12
+	MOVFF 0X01,WREG
+	MOVWF 0X13
+	RETURN

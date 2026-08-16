@@ -1,0 +1,7 @@
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2023MID.X\2B.ASM 8 : Found label after column 1. (MAIN)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2023MID.X\2B.ASM 41 : Found label after column 1. (SORT)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2023MID.X\2B.ASM 46 : Found label after column 1. (FOR_I)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2023MID.X\2B.ASM 57 : Found label after column 1. (FOR_J)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2023MID.X\2B.ASM 74 : Found label after column 1. (SKIP_SWAP)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2023MID.X\2B.ASM 78 : Found label after column 1. (NEXT_I)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2023MID.X\2B.ASM 82 : Found label after column 1. (DONE_SORT)

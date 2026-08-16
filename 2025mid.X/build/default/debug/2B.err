@@ -1,0 +1,8 @@
+Warning[205] C:\USERS\USER\MPLABXPROJECTS\2025MID.X\2B.ASM 1 : Found directive in column 1. (List)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2025MID.X\2B.ASM 52 : Found label after column 1. (SORT)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2025MID.X\2B.ASM 57 : Found label after column 1. (FOR_I)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2025MID.X\2B.ASM 68 : Found label after column 1. (FOR_J)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2025MID.X\2B.ASM 85 : Found label after column 1. (SKIP_SWAP)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2025MID.X\2B.ASM 89 : Found label after column 1. (NEXT_I)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\2025MID.X\2B.ASM 93 : Found label after column 1. (DONE_SORT)
+Warning[205] C:\USERS\USER\MPLABXPROJECTS\2025MID.X\2B.ASM 97 : Found directive in column 1. (END)

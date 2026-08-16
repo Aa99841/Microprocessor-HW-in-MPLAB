@@ -1,0 +1,42 @@
+MPLINK 5.09, LINKER
+Linker Map File - Created Sun Oct 19 14:52:36 2025
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000046
+                   .cinit    romdata   0x000046    program   0x000002
+.config_300001_BUILD/DEFAULT/DEBUG/ADVANCE.O    romdata   0x300001    program   0x000001
+.config_300003_BUILD/DEFAULT/DEBUG/ADVANCE.O    romdata   0x300003    program   0x000001
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000047      
+                            0x300001    0x300001      
+                            0x300003    0x300003      
+            74 out of 33048 program addresses used, program memory utilization is 0%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   BORROW   0x00002c    program     static C:\Users\User\MPLABXProjects\lab03.X\advance.asm
+                 NOBORROW   0x00001e    program     static C:\Users\User\MPLABXProjects\lab03.X\advance.asm
+                    PART1   0x000010    program     static C:\Users\User\MPLABXProjects\lab03.X\advance.asm
+                    PART2   0x00003c    program     static C:\Users\User\MPLABXProjects\lab03.X\advance.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    PART1   0x000010    program     static C:\Users\User\MPLABXProjects\lab03.X\advance.asm
+                 NOBORROW   0x00001e    program     static C:\Users\User\MPLABXProjects\lab03.X\advance.asm
+                   BORROW   0x00002c    program     static C:\Users\User\MPLABXProjects\lab03.X\advance.asm
+                    PART2   0x00003c    program     static C:\Users\User\MPLABXProjects\lab03.X\advance.asm
+
+

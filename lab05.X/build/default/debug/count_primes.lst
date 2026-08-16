@@ -1,0 +1,270 @@
+
+
+Microchip MPLAB XC8 Assembler V2.46 build 20240104201356 
+                                                                                                           Sun Oct 19 15:46:43 2025
+
+
+     1                           	processor	18F4520
+     2                           	pagewidth 132
+     3                           	opt	flic
+     4                           	psect	udata_acs,global,class=COMRAM,space=1,delta=1,lowdata,noexec
+     5                           	psect	udata_bank0,global,class=BANK0,space=1,delta=1,lowdata,noexec
+     6                           	psect	udata_bank1,global,class=BANK1,space=1,delta=1,lowdata,noexec
+     7                           	psect	udata_bank2,global,class=BANK2,space=1,delta=1,lowdata,noexec
+     8                           	psect	udata_bank3,global,class=BANK3,space=1,delta=1,lowdata,noexec
+     9                           	psect	udata_bank4,global,class=BANK4,space=1,delta=1,lowdata,noexec
+    10                           	psect	udata_bank5,global,class=BANK5,space=1,delta=1,lowdata,noexec
+    11                           	psect	udata,global,class=RAM,space=1,delta=1,noexec
+    12                           	psect	code,global,reloc=2,class=CODE,delta=1
+    13                           	psect	data,global,reloc=2,class=CONST,delta=1,noexec
+    14                           	psect	edata,global,class=EEDATA,space=3,delta=1,noexec
+    15                           	psect	mytext,local,reloc=2,class=CODE,delta=1
+    16   000000                     
+    17                           	psect	edata
+    18   000000                     stk_offset	set	0
+    19   000000                     auto_size	set	0
+    20                           
+    21                           ; stack_auto defines a symbol /name/_offset which equates to the
+    22                           ; stack offset of the auto object in question
+    23   000000                     
+    24                           ; stack_param defines a symbol /name/_offset which equates to the
+    25                           ; stack offset of the parameter object in question
+    26   000000                     
+    27                           ; alloc_stack adjusts the SP to allocate space for auto objects
+    28                           ; it also links in to the btemp symbol so that can be used
+    29   000000                     
+    30                           ; restore_stack adjusts the SP to remove all auto and parameter
+    31                           ; objects from the stack prior to returning from a function
+    32   000000                     
+    33                           	psect	mytext
+    34   000602                     _count_primes:
+    35                           	callstack 0
+    36   000602  90D1               	bcf	4049,0,c
+    37   000604  C002 FF92          	movff	2,3986	;sH
+    38   000608  C001 FF93          	movff	1,3987	;sL
+    39   00060C  C004 F050          	movff	4,80	;bH
+    40   000610  C003 F051          	movff	3,81	;bL
+    41   000614                     COUNT_LOOP:
+    42   000614  CF92 FF89          	movff	3986,3977
+    43   000618  CF93 FF8A          	movff	3987,3978
+    44                           
+    45                           ; check it is prime or not( yes = 1, no = 0)
+    46   00061C  6A40               	clrf	64,c
+    47   00061E  6A41               	clrf	65,c
+    48   000620  D822               	rcall	is_prime
+    49                           
+    50                           ;add the result of is_prime to answer
+    51   000622  C041 FFE8          	movff	65,wreg
+    52   000626  248C               	addwf	3980,w,c
+    53   000628  6E8C               	movwf	3980,c
+    54   00062A  C040 FFE8          	movff	64,wreg
+    55   00062E  208B               	addwfc	3979,w,c
+    56   000630  6E8B               	movwf	3979,c	;ANSWER
+    57                           
+    58                           ;loop count ++
+    59   000632  0E01               	movlw	1
+    60   000634  2493               	addwf	3987,w,c
+    61   000636  6E93               	movwf	3987,c
+    62   000638  0E00               	movlw	0
+    63   00063A  2092               	addwfc	3986,w,c
+    64   00063C  6E92               	movwf	3986,c	;LOOP COUNT
+    65                           
+    66                           ; compare it to check it should be end or not
+    67                           ; check [TRISA][TRISB] == 0 is to check it is 65535 or not
+    68   00063E  0E00               	movlw	0
+    69   000640  6292               	cpfseq	3986,c
+    70   000642  D003               	goto	COUNT_COMPARE2
+    71   000644  6293               	cpfseq	3987,c
+    72   000646  D001               	goto	COUNT_COMPARE2
+    73   000648  D008               	goto	COUNT_DONE
+    74   00064A                     COUNT_COMPARE2:
+    75   00064A  C050 FFE8          	movff	80,wreg
+    76                           
+    77                           ; if (TRISA != 0x50) goto COUNT_LOOP
+    78   00064E  6292               	cpfseq	3986,c
+    79   000650  D7E1               	goto	COUNT_LOOP
+    80                           
+    81                           ; if(TRISB > 0x51) goto COUNT_DONE
+    82   000652  C051 FFE8          	movff	81,wreg
+    83   000656  6493               	cpfsgt	3987,c
+    84   000658  D7DD               	goto	COUNT_LOOP
+    85   00065A                     COUNT_DONE:
+    86   00065A  CF8B F002          	movff	3979,2
+    87   00065E  CF8C F001          	movff	3980,1
+    88   000662  6AE8               	clrf	wreg,c
+    89   000664  0012               	return	
+    90   000666                     is_prime:
+    91   000666  6A20               	clrf	32,c
+    92   000668  6A21               	clrf	33,c
+    93   00066A  0EFF               	movlw	255
+    94   00066C  6E20               	movwf	32,c
+    95   00066E  0EFF               	movlw	255
+    96   000670  6E21               	movwf	33,c	;LOOP COUNT
+    97   000672  0E00               	movlw	0	; N <= 256 ?
+    98   000674  6289               	cpfseq	3977,c
+    99   000676  D00B               	goto	DIV_2
+   100   000678  0E01               	movlw	1
+   101   00067A  648A               	cpfsgt	3978,c	;IF(N <= 1) FALSE
+   102   00067C  D055               	goto	FALSE
+   103   00067E  0E02               	movlw	2
+   104   000680  628A               	cpfseq	3978,c	;IF(N = 2) TRUE
+   105   000682  D001               	goto	C3
+   106   000684  D04F               	goto	TRUE
+   107   000686                     C3:
+   108   000686  0E03               	movlw	3
+   109   000688  628A               	cpfseq	3978,c	;IF(N = 3) TRUE
+   110   00068A  D001               	goto	DIV_2
+   111   00068C  D04B               	goto	TRUE
+   112   00068E                     DIV_2:
+   113   00068E  B08A               	btfsc	3978,0,c
+   114   000690  D002               	goto	DIV_3
+   115   000692  0EFF               	movlw	255	;IF(N % 2 == 0) FALSE
+   116   000694  D049               	goto	FALSE
+   117   000696                     DIV_3:
+   118   000696  CF89 F000          	movff	3977,0
+   119   00069A  CF8A F001          	movff	3978,1
+   120   00069E  0E03               	movlw	3
+   121   0006A0  6E03               	movwf	3,c
+   122   0006A2  0E00               	movlw	0
+   123   0006A4  0E02               	movlw	2
+   124   0006A6  D039               	goto	L1
+   125   0006A8                     DIV_PART2:
+   126   0006A8  0E06               	movlw	6
+   127   0006AA  2421               	addwf	33,w,c
+   128   0006AC  6E21               	movwf	33,c
+   129   0006AE  0E00               	movlw	0
+   130   0006B0  2020               	addwfc	32,w,c
+   131   0006B2  6E20               	movwf	32,c	;LOOP COUNT
+   132   0006B4  0E00               	movlw	0
+   133   0006B6  6220               	cpfseq	32,c
+   134   0006B8  D035               	goto	TRUE
+   135   0006BA  C021 F030          	movff	33,48
+   136   0006BE  C021 FFE8          	movff	33,wreg
+   137   0006C2  0230               	mulwf	48,c	;LOOP COUNT^2
+   138   0006C4  CFF4 F030          	movff	prodh,48
+   139   0006C8  CFF3 F031          	movff	prodl,49
+   140   0006CC  C030 FFE8          	movff	48,wreg
+   141   0006D0  6489               	cpfsgt	3977,c
+   142   0006D2  D001               	goto	PRIME_COMPARE2
+   143   0006D4  D009               	goto	CHECK
+   144   0006D6                     PRIME_COMPARE2:
+   145   0006D6  C030 FFE8          	movff	48,wreg
+   146   0006DA  6289               	cpfseq	3977,c
+   147   0006DC  D023               	goto	TRUE
+   148   0006DE  C031 FFE8          	movff	49,wreg
+   149   0006E2  608A               	cpfslt	3978,c
+   150   0006E4  D001               	goto	CHECK
+   151   0006E6  D01E               	goto	TRUE
+   152   0006E8                     CHECK:
+   153   0006E8  CF89 F000          	movff	3977,0
+   154   0006EC  CF8A F001          	movff	3978,1
+   155   0006F0  C021 F003          	movff	33,3
+   156   0006F4  C020 F002          	movff	32,2
+   157   0006F8  D81C               	rcall	division
+   158   0006FA  0E00               	movlw	0
+   159   0006FC  6213               	cpfseq	19,c
+   160   0006FE  D001               	goto	CHECK2
+   161   000700  D013               	goto	FALSE
+   162   000702                     CHECK2:
+   163   000702  CF89 F000          	movff	3977,0
+   164   000706  CF8A F001          	movff	3978,1
+   165   00070A  C021 F003          	movff	33,3
+   166   00070E  C020 F002          	movff	32,2
+   167   000712  0E02               	movlw	2
+   168   000714  2603               	addwf	3,f,c
+   169   000716  0E00               	movlw	0
+   170   000718  2202               	addwfc	2,f,c
+   171   00071A                     L1:
+   172   00071A  D80B               	rcall	division
+   173   00071C  0E00               	movlw	0
+   174   00071E  6213               	cpfseq	19,c
+   175   000720  D7C3               	goto	DIV_PART2
+   176   000722  D002               	goto	FALSE
+   177   000724                     TRUE:
+   178   000724  0E01               	movlw	1
+   179   000726  D002               	goto	L2
+   180   000728                     FALSE:
+   181   000728  0E00               	movlw	0
+   182   00072A  6E40               	movwf	64,c
+   183   00072C                     L2:
+   184   00072C  6E41               	movwf	65,c
+   185   00072E  0000               	nop	
+   186   000730  0012               	return	
+   187   000732                     division:
+   188   000732  6A12               	clrf	18,c
+   189   000734  6A13               	clrf	19,c
+   190   000736                     DIV_LOOP:
+   191   000736  5000               	movf	0,w,c	;WREG = A
+   192   000738  5C02               	subwf	2,w,c	;WREG = WREG - B
+   193   00073A  E307               	bnc	DIV_SUB	; B < A
+   194   00073C  5000               	movf	0,w,c
+   195   00073E  6202               	cpfseq	2,c
+   196   000740  D009               	goto	DIV_DONE
+   197   000742  5003               	movf	3,w,c	;WREG = D
+   198   000744  5C01               	subwf	1,w,c	;WREG = WREG - C
+   199   000746  E201               	bc	DIV_SUB	;C >= D
+   200   000748  D005               	goto	DIV_DONE
+   201   00074A                     DIV_SUB:
+   202   00074A  5003               	movf	3,w,c
+   203   00074C  5E01               	subwf	1,f,c
+   204   00074E  5002               	movf	2,w,c
+   205   000750  5A00               	subwfb	0,f,c
+   206   000752  D7F1               	goto	DIV_LOOP
+   207   000754                     DIV_DONE:
+   208   000754  C000 FFE8          	movff	0,wreg
+   209   000758  6E12               	movwf	18,c
+   210   00075A  C001 FFE8          	movff	1,wreg
+   211   00075E  6E13               	movwf	19,c
+   212   000760  0012               	return	
+   213                           tosu	equ	0xFFF
+   214                           tosh	equ	0xFFE
+   215                           tosl	equ	0xFFD
+   216                           stkptr	equ	0xFFC
+   217                           pclatu	equ	0xFFB
+   218                           pclath	equ	0xFFA
+   219                           pcl	equ	0xFF9
+   220                           tblptru	equ	0xFF8
+   221                           tblptrh	equ	0xFF7
+   222                           tblptrl	equ	0xFF6
+   223                           tablat	equ	0xFF5
+   224                           prodh	equ	0xFF4
+   225                           prodl	equ	0xFF3
+   226                           indf0	equ	0xFEF
+   227                           postinc0	equ	0xFEE
+   228                           postdec0	equ	0xFED
+   229                           preinc0	equ	0xFEC
+   230                           plusw0	equ	0xFEB
+   231                           fsr0h	equ	0xFEA
+   232                           fsr0l	equ	0xFE9
+   233                           wreg	equ	0xFE8
+   234                           indf1	equ	0xFE7
+   235                           postinc1	equ	0xFE6
+   236                           postdec1	equ	0xFE5
+   237                           preinc1	equ	0xFE4
+   238                           plusw1	equ	0xFE3
+   239                           fsr1h	equ	0xFE2
+   240                           fsr1l	equ	0xFE1
+   241                           bsr	equ	0xFE0
+   242                           indf2	equ	0xFDF
+   243                           postinc2	equ	0xFDE
+   244                           postdec2	equ	0xFDD
+   245                           preinc2	equ	0xFDC
+   246                           plusw2	equ	0xFDB
+   247                           fsr2h	equ	0xFDA
+   248                           fsr2l	equ	0xFD9
+   249                           status	equ	0xFD8
+
+
+Microchip Technology PIC18 Macro Assembler V2.46 build 20240104201356 
+Symbol Table                                                                                               Sun Oct 19 15:46:43 2025
+
+                          C3 0686                          LATA 0F89                          LATB 0F8A  
+                        LATC 0F8B                          LATD 0F8C                          WREG 0FE8  
+                        TRUE 0724                         CHECK 06E8                         FALSE 0728  
+                       DIV_2 068E                         DIV_3 0696                COUNT_COMPARE2 064A  
+                       PRODH 0FF4                         PRODL 0FF3                         TRISA 0F92  
+                       TRISB 0F93                        CHECK2 0702                        WDTCON 0FD1  
+                     DIV_SUB 074A                       isa$std 0001                    COUNT_DONE 065A  
+                  COUNT_LOOP 0614                      DIV_DONE 0754                      DIV_LOOP 0736  
+                    division 0732                      is_prime 0666                PRIME_COMPARE2 06D6  
+               _count_primes 0602                     DIV_PART2 06A8                     isa$xinst 0000  

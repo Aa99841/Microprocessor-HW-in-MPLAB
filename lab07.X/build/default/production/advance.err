@@ -1,0 +1,5 @@
+Warning[203] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\ADVANCE.ASM 60 : Found opcode in column 1. (goto)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\ADVANCE.ASM 62 : Found label after column 1. (SUB15)
+Warning[207] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\ADVANCE.ASM 84 : Found label after column 1. (BACK)
+Warning[202] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\ADVANCE.ASM 105 : Argument out of range.  Least significant bits used.
+Warning[205] C:\USERS\USER\MPLABXPROJECTS\LAB07.X\ADVANCE.ASM 115 : Found directive in column 1. (end)
